@@ -1,8 +1,8 @@
 ﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
-CREATE OR REPLACE WRAPPER JDBC customer
+CREATE OR REPLACE WRAPPER JDBC customer_test
     DATASOURCENAME=ds_oracle
-    SCHEMANAME='${databases.samplecheck.views.jdbc.customer.SCHEMANAME}' 
-    RELATIONNAME='CUSTOMER' 
+    SCHEMANAME='${databases.samplecheck.views.jdbc.customer_test.SCHEMANAME}' 
+    RELATIONNAME='CUSTOMER_TEST' 
     OUTPUTSCHEMA (
         id = 'ID' :'java.math.BigDecimal' (OPT) (sourcetyperadix='10', sourcetypeid='3', sourcetypename='NUMBER')  NOT NULL SORTABLE,
         customer_code_internal = 'CUSTOMER_CODE_INTERNAL' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='20', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL SORTABLE,
@@ -14,11 +14,9 @@ CREATE OR REPLACE WRAPPER JDBC customer
         main_postcode = 'MAIN_POSTCODE' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='20', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
         main_country = 'MAIN_COUNTRY' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='100', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
         registered_date = 'REGISTERED_DATE' :'java.time.LocalDateTime' (OPT) (sourcetypedecimals='6', sourcetyperadix='10', sourcetypesize='11', sourcetypeid='93', sourcetypename='TIMESTAMP(6)')  NOT NULL SORTABLE
-    )
-    CONSTRAINT 'CUSTOMER_PK' PRIMARY KEY ( 'ID' , 'CUSTOMER_CODE_INTERNAL' )
-    INDEX 'CUSTOMER_PK' CLUSTER UNIQUE PRIMARY ( 'ID' , 'CUSTOMER_CODE_INTERNAL' );
+    );
 
-CREATE OR REPLACE TABLE customer I18N au_cst (
+CREATE OR REPLACE TABLE customer_test I18N au_cst (
         id:decimal (sourcetypeid = '3', sourcetyperadix = '10'), 
         customer_code_internal:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '20'), 
         first_name:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '50'), 
@@ -30,10 +28,9 @@ CREATE OR REPLACE TABLE customer I18N au_cst (
         main_country:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '100'), 
         registered_date:timestamp (sourcetypeid = '93', sourcetyperadix = '10', sourcetypedecimals = '6', sourcetypesize = '11')
     )
-    PRIMARY KEY ( 'customer_code_internal' )
     CACHE OFF
     TIMETOLIVEINCACHE DEFAULT
-    ADD SEARCHMETHOD customer(
+    ADD SEARCHMETHOD customer_test(
         I18N au_cst
         CONSTRAINTS (
              ADD id (any) OPT ANY
@@ -49,6 +46,6 @@ CREATE OR REPLACE TABLE customer I18N au_cst (
         )
         OUTPUTLIST (customer_code_internal, email, first_name, id, last_name, main_address, main_country, main_postcode, phone, registered_date
         )
-        WRAPPER (jdbc customer)
+        WRAPPER (jdbc customer_test)
     );
 
