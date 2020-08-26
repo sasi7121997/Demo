@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW bv_query_j_bv_wo_dis_from_storage FOLDER = '/base_view' AS SELECT bv_query.id AS id, bv_query.customer_code_internal AS customer_code_internal, bv_query.first_name AS first_name, bv_query.last_name AS last_name, bv_query.email AS email, bv_query.phone AS phone, bv_query.main_address AS main_address, bv_query.main_postcode AS main_postcode, bv_query.main_country AS main_country, bv_query.registered_date AS registered_date, bv_wo_dis_from_storage.lat_storage AS lat_storage, bv_wo_dis_from_storage.lon_storage AS lon_storage, bv_wo_dis_from_storage.storage_id AS storage_id FROM bv_query AS bv_query LEFT OUTER JOIN bv_wo_dis_from_storage AS bv_wo_dis_from_storage ON bv_query.first_name = bv_wo_dis_from_storage.lat_storage ;
+
+ALTER VIEW bv_query_j_bv_wo_dis_from_storage
+ LAYOUT (bv_query = [20, 20, 200, 225], bv_wo_dis_from_storage = [384, 123, 200, 86]);
+

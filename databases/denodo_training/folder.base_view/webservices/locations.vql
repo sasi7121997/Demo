@@ -1,0 +1,91 @@
+﻿CREATE OR REPLACE SOAP WEBSERVICE locations
+    CONNECTION (
+        CHUNKSIZE = 1000
+        CHUNKTIMEOUT = 90000
+        QUERYTIMEOUT = 900000
+        POOLENABLED = true
+        POOLINITSIZE = 0
+        POOLMAXACTIVE = 30
+    )
+    I18N  = au_cst
+    DATETYPEMAPPING DATE
+    NOWRAPARRAYS
+    RAISEFAULTONIDU
+    DONOTAPPLYOUTPUTXSLTTOERRORS
+    OUTPUT 
+        ( STYLE DOCUMENT )
+    OPERATION 'getLOCATIONSByLOCATION_IDAndSTREET_ADDRESSAndPOSTAL_CODEAndCITYAndSTATE_PROVINCEAndCOUNTRY_ID' (
+        TYPE SELECT
+        SCHEMA VIEW locations
+        VQL = 'SELECT location_id, street_address, postal_code, city, state_province, country_id FROM locations ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@VERBOSEERRORS,"")^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'GetLOCATIONSByLOCATION_IDAndSTREET_ADDRESSAndPOSTAL_CODEAndCITYAndSTATE_PROVINCEAndCOUNTRY_ID' (
+            'LOCATION_ID' location_id:'int' '=' 
+            'STREET_ADDRESS' street_address:'text' '=' 
+            'POSTAL_CODE' postal_code:'text' '=' 
+            'CITY' city:'text' '=' 
+            'STATE_PROVINCE' state_province:'text' '=' 
+            'COUNTRY_ID' country_id:'text' '=' 
+        )
+        OUTPUT 
+            'LOCATIONSReturn': Array of ( 'LOCATIONSReturnRow': Register of (
+                location_id : 'int',
+                street_address : 'text',
+                postal_code : 'text',
+                city : 'text',
+                state_province : 'text',
+                country_id : 'text'
+            ) (
+                    '/city'='CITY',
+                    '/country_id'='COUNTRY_ID',
+                    '/location_id'='LOCATION_ID',
+                    '/postal_code'='POSTAL_CODE',
+                    '/state_province'='STATE_PROVINCE',
+                    '/street_address'='STREET_ADDRESS'))
+    )    OPERATION 'insertLOCATIONS' (
+        TYPE INSERT
+        SCHEMA VIEW locations
+        VQL = 'INSERT INTO locations (location_id, street_address, postal_code, city, state_province, country_id) VALUES (@LOCATION_ID, @STREET_ADDRESS, @POSTAL_CODE, @CITY, @STATE_PROVINCE, @COUNTRY_ID) CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'InsertLOCATIONS' (
+            'LOCATION_ID' location_id:'int' '=' OBL 
+            'STREET_ADDRESS' street_address:'text' '=' 
+            'POSTAL_CODE' postal_code:'text' '=' 
+            'CITY' city:'text' '=' OBL 
+            'STATE_PROVINCE' state_province:'text' '=' 
+            'COUNTRY_ID' country_id:'text' '=' 
+        )
+        OUTPUT 'long'
+    )    OPERATION 'deleteLOCATIONS' (
+        TYPE DELETE
+        SCHEMA VIEW locations
+        VQL = 'DELETE FROM locations ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'DeleteLOCATIONS' (
+            'LOCATION_ID' location_id:'int' '=' 
+            'STREET_ADDRESS' street_address:'text' '=' 
+            'POSTAL_CODE' postal_code:'text' '=' 
+            'CITY' city:'text' '=' 
+            'STATE_PROVINCE' state_province:'text' '=' 
+            'COUNTRY_ID' country_id:'text' '=' 
+        )
+        OUTPUT 'long'
+    )    OPERATION 'updateLOCATIONS' (
+        TYPE UPDATE
+        SCHEMA VIEW locations
+        VQL = 'UPDATE locations SET location_id=@newLOCATION_ID, street_address=@newSTREET_ADDRESS, postal_code=@newPOSTAL_CODE, city=@newCITY, state_province=@newSTATE_PROVINCE, country_id=@newCOUNTRY_ID ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'UpdateLOCATIONS' (
+            'LOCATION_ID' location_id:'int' '=' 
+            'STREET_ADDRESS' street_address:'text' '=' 
+            'POSTAL_CODE' postal_code:'text' '=' 
+            'CITY' city:'text' '=' 
+            'STATE_PROVINCE' state_province:'text' '=' 
+            'COUNTRY_ID' country_id:'text' '=' 
+            SET 'newLOCATION_ID' location_id:'int' '=' OBL 
+            SET 'newSTREET_ADDRESS' street_address:'text' '=' 
+            SET 'newPOSTAL_CODE' postal_code:'text' '=' 
+            SET 'newCITY' city:'text' '=' OBL 
+            SET 'newSTATE_PROVINCE' state_province:'text' '=' 
+            SET 'newCOUNTRY_ID' country_id:'text' '=' 
+        )
+        OUTPUT 'long'
+    )
+    FOLDER = '/base_view';
+

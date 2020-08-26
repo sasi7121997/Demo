@@ -1,0 +1,35 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC countries_4392
+    FOLDER = '/data_source'
+    DATASOURCENAME=ds_mysql
+    CATALOGNAME='${databases.denodo_training.folder.data_source.views.jdbc.countries_4392.CATALOGNAME}' 
+    RELATIONNAME='countries' 
+    OUTPUTSCHEMA (
+        countryid = 'CountryID' :'java.lang.Integer' (OPT) (sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='4', sourcetypename='INT')  ESCAPE NOT NULL SORTABLE,
+        countryname = 'CountryName' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='50', description='', sourcetypeid='12', sourcetypename='VARCHAR')  ESCAPE SORTABLE,
+        countrycode = 'CountryCode' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='16777215', description='', sourcetypeid='-1', sourcetypename='MEDIUMTEXT')  ESCAPE NOT SORTABLE
+    )
+    CONSTRAINT 'PRIMARY' PRIMARY KEY ( 'CountryID' )
+    INDEX 'PRIMARY' CLUSTER UNIQUE PRIMARY ( 'CountryID' );
+
+CREATE OR REPLACE TABLE countries I18N au_cst (
+        countryid:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypesize = '10', description = ''), 
+        countryname:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '50', description = ''), 
+        countrycode:text (sourcetypeid = '-1', sourcetyperadix = '10', sourcetypesize = '16777215', description = '')
+    )
+    FOLDER = '/data_source'
+    CONSTRAINT 'PRIMARY' PRIMARY KEY ( 'countryid' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD countries(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD countryid (any) OPT ANY
+             ADD countryname (any) OPT ANY
+             ADD countrycode (any) OPT ANY
+        )
+        OUTPUTLIST (countrycode, countryid, countryname
+        )
+        WRAPPER (jdbc countries_4392)
+    );
+

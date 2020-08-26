@@ -1,0 +1,41 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC states1
+    FOLDER = '/data_source'
+    DATASOURCENAME=ds_mysql
+    CATALOGNAME='${databases.denodo_training.folder.data_source.views.jdbc.states1.CATALOGNAME}' 
+    RELATIONNAME='states1' 
+    OUTPUTSCHEMA (
+        stateid = 'StateID' :'java.lang.Integer' (OPT) (sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='4', sourcetypename='INT')  ESCAPE NOT NULL SORTABLE IS_AUTOINCREMENT,
+        statename = 'StateName' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='50', description='', sourcetypeid='12', sourcetypename='VARCHAR')  ESCAPE SORTABLE,
+        statecode = 'StateCode' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='16777215', description='', sourcetypeid='-1', sourcetypename='MEDIUMTEXT')  ESCAPE NOT SORTABLE,
+        countryid = 'CountryID' :'java.lang.Integer' (OPT) (sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='4', sourcetypename='INT')  ESCAPE SORTABLE
+    )
+    CONSTRAINT 'PRIMARY' PRIMARY KEY ( 'StateID' )
+    CONSTRAINT 'states1_ibfk_1' FOREIGN KEY ( 'CountryID' ) 
+    REFERENCES 'new_training'.'countries'( 'CountryID' )  ON UPDATE CASCADE  ON DELETE CASCADE NOT DEFERRABLE 
+    INDEX 'PRIMARY' CLUSTER UNIQUE PRIMARY ( 'StateID' )
+    INDEX 'CountryID' OTHER ( 'CountryID' );
+
+CREATE OR REPLACE TABLE states1 I18N au_cst (
+        stateid:int (autoincrement, sourcetypeid = '4', sourcetyperadix = '10', sourcetypesize = '10', description = ''), 
+        statename:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '50', description = ''), 
+        statecode:text (sourcetypeid = '-1', sourcetyperadix = '10', sourcetypesize = '16777215', description = ''), 
+        countryid:int (sourcetypeid = '4', sourcetyperadix = '10', sourcetypesize = '10', description = '')
+    )
+    FOLDER = '/data_source'
+    CONSTRAINT 'PRIMARY' PRIMARY KEY ( 'stateid' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD states1(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD stateid (any) OPT ANY
+             ADD statename (any) OPT ANY
+             ADD statecode (any) OPT ANY
+             ADD countryid (any) OPT ANY
+        )
+        OUTPUTLIST (countryid, statecode, stateid, statename
+        )
+        WRAPPER (jdbc states1)
+    );
+

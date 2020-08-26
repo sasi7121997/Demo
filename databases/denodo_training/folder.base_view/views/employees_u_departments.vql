@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW employees_u_departments FOLDER = '/base_view' AS SELECT employee_id, first_name, last_name, email, phone_number, hire_date, job_id, salary, commission_pct, manager_id, department_id, department_name, location_id FROM (SELECT * FROM employees UNION SELECT manager_id, department_id, department_name, location_id FROM departments);
+
+ALTER VIEW employees_u_departments
+ LAYOUT (employees = [20, 20, 200, 225], departments = [346, 130, 200, 106]);
+

@@ -1,0 +1,84 @@
+﻿CREATE OR REPLACE SOAP WEBSERVICE delivery
+    CONNECTION (
+        CHUNKSIZE = 1000
+        CHUNKTIMEOUT = 90000
+        QUERYTIMEOUT = 900000
+        POOLENABLED = true
+        POOLINITSIZE = 0
+        POOLMAXACTIVE = 30
+    )
+    I18N  = au_cst
+    DATETYPEMAPPING DATE
+    NOWRAPARRAYS
+    RAISEFAULTONIDU
+    DONOTAPPLYOUTPUTXSLTTOERRORS
+    OUTPUT 
+        ( STYLE DOCUMENT )
+    OPERATION 'getDELIVERYByIDAndORDER_ITEM_IDAndDATE_SENTAndDATE_RECEIVEDAndSTATUS' (
+        TYPE SELECT
+        SCHEMA VIEW delivery
+        VQL = 'SELECT id, order_item_id, date_sent, date_received, status FROM delivery ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@VERBOSEERRORS,"")^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'GetDELIVERYByIDAndORDER_ITEM_IDAndDATE_SENTAndDATE_RECEIVEDAndSTATUS' (
+            'ID' id:'decimal' '=' 
+            'ORDER_ITEM_ID' order_item_id:'decimal' '=' 
+            'DATE_SENT' date_sent:'timestamp' '=' 
+            'DATE_RECEIVED' date_received:'timestamp' '=' 
+            'STATUS' status:'text' '=' 
+        )
+        OUTPUT 
+            'DELIVERYReturn': Array of ( 'DELIVERYReturnRow': Register of (
+                id : 'decimal',
+                order_item_id : 'decimal',
+                date_sent : 'timestamp',
+                date_received : 'timestamp',
+                status : 'text'
+            ) (
+                    '/date_received'='DATE_RECEIVED',
+                    '/date_sent'='DATE_SENT',
+                    '/id'='ID',
+                    '/order_item_id'='ORDER_ITEM_ID',
+                    '/status'='STATUS'))
+    )    OPERATION 'insertDELIVERY' (
+        TYPE INSERT
+        SCHEMA VIEW delivery
+        VQL = 'INSERT INTO delivery (id, order_item_id, date_sent, date_received, status) VALUES (@ID, @ORDER_ITEM_ID, @DATE_SENT, @DATE_RECEIVED, @STATUS) CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'InsertDELIVERY' (
+            'ID' id:'decimal' '=' OBL 
+            'ORDER_ITEM_ID' order_item_id:'decimal' '=' OBL 
+            'DATE_SENT' date_sent:'timestamp' '=' 
+            'DATE_RECEIVED' date_received:'timestamp' '=' 
+            'STATUS' status:'text' '=' 
+        )
+        OUTPUT 'long'
+    )    OPERATION 'deleteDELIVERY' (
+        TYPE DELETE
+        SCHEMA VIEW delivery
+        VQL = 'DELETE FROM delivery ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'DeleteDELIVERY' (
+            'ID' id:'decimal' '=' 
+            'ORDER_ITEM_ID' order_item_id:'decimal' '=' 
+            'DATE_SENT' date_sent:'timestamp' '=' 
+            'DATE_RECEIVED' date_received:'timestamp' '=' 
+            'STATUS' status:'text' '=' 
+        )
+        OUTPUT 'long'
+    )    OPERATION 'updateDELIVERY' (
+        TYPE UPDATE
+        SCHEMA VIEW delivery
+        VQL = 'UPDATE delivery SET id=@newID, order_item_id=@newORDER_ITEM_ID, date_sent=@newDATE_SENT, date_received=@newDATE_RECEIVED, status=@newSTATUS ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'UpdateDELIVERY' (
+            'ID' id:'decimal' '=' 
+            'ORDER_ITEM_ID' order_item_id:'decimal' '=' 
+            'DATE_SENT' date_sent:'timestamp' '=' 
+            'DATE_RECEIVED' date_received:'timestamp' '=' 
+            'STATUS' status:'text' '=' 
+            SET 'newID' id:'decimal' '=' OBL 
+            SET 'newORDER_ITEM_ID' order_item_id:'decimal' '=' OBL 
+            SET 'newDATE_SENT' date_sent:'timestamp' '=' 
+            SET 'newDATE_RECEIVED' date_received:'timestamp' '=' 
+            SET 'newSTATUS' status:'text' '=' 
+        )
+        OUTPUT 'long'
+    )
+    FOLDER = '/base_view';
+

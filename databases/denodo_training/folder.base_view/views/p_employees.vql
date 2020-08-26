@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW p_employees FOLDER = '/base_view' AS SELECT employee_id AS employee_id, register(first_name, last_name, email, phone_number) AS name FROM employees GROUP BY employee_id, first_name, last_name, email, phone_number;
+
+ALTER VIEW p_employees
+ LAYOUT (employees = [20, 20, 243, 246]);
+

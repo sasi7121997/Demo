@@ -1,0 +1,290 @@
+﻿CREATE OR REPLACE WRAPPER XML ds_excell_6551
+    FOLDER = '/data_source'
+    DATASOURCENAME=ds_excell
+    TUPLEROOT 'wsdl:definitions'
+    OUTPUTSCHEMA (wsdldefinitions_0 = 'wsdl:definitions' : REGISTER OF (
+        targetnamespace = '#targetNamespace' : 'java.lang.String',
+        wsdltypes_0 = 'wsdl:types' : REGISTER OF (
+            schema = 'schema' : REGISTER OF (
+                elementformdefault = '#elementFormDefault' : 'java.lang.String',
+                targetnamespace = '#targetNamespace' : 'java.lang.String',
+                complextype = 'complexType' : ARRAY OF (
+                    complextype = 'complexType' : REGISTER OF (
+                        name = '#name' : 'java.lang.String',
+                        sequence = 'sequence' : REGISTER OF (
+                            element = 'element' : ARRAY OF (
+                                element = 'element' : REGISTER OF (
+                                    maxoccurs = '#maxOccurs' : 'java.lang.String',
+                                    minoccurs = '#minOccurs' : 'java.lang.Short',
+                                    name = '#name' : 'java.lang.String',
+                                    type = '#type' : 'java.lang.String'
+                                )
+                            )
+                        )
+                    )
+                ),
+                element = 'element' : ARRAY OF (
+                    element = 'element' : REGISTER OF (
+                        name = '#name' : 'java.lang.String',
+                        type = '#type' : 'java.lang.String',
+                        complextype = 'complexType' : REGISTER OF (
+                            sequence = 'sequence' : REGISTER OF (
+                                element = 'element' : REGISTER OF (
+                                    maxoccurs = '#maxOccurs' : 'java.lang.String',
+                                    minoccurs = '#minOccurs' : 'java.lang.Short',
+                                    name = '#name' : 'java.lang.String',
+                                    type = '#type' : 'java.lang.String'
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        ),
+        wsdlmessage_0 = 'wsdl:message' : ARRAY OF (
+            wsdlmessage_0 = 'wsdl:message' : REGISTER OF (
+                name = '#name' : 'java.lang.String',
+                wsdlpart_0 = 'wsdl:part' : REGISTER OF (
+                    element = '#element' : 'java.lang.String',
+                    name = '#name' : 'java.lang.String'
+                )
+            )
+        ),
+        wsdlporttype_0 = 'wsdl:portType' : REGISTER OF (
+            name = '#name' : 'java.lang.String',
+            wsdloperation_0 = 'wsdl:operation' : ARRAY OF (
+                wsdloperation_0 = 'wsdl:operation' : REGISTER OF (
+                    name = '#name' : 'java.lang.String',
+                    parameterorder = '#parameterOrder' : 'java.lang.String',
+                    wsdlinput_0 = 'wsdl:input' : REGISTER OF (
+                        message = '#message' : 'java.lang.String',
+                        name = '#name' : 'java.lang.String'
+                    ),
+                    wsdloutput_0 = 'wsdl:output' : REGISTER OF (
+                        message = '#message' : 'java.lang.String',
+                        name = '#name' : 'java.lang.String'
+                    ),
+                    wsdlfault_0 = 'wsdl:fault' : REGISTER OF (
+                        message = '#message' : 'java.lang.String',
+                        name = '#name' : 'java.lang.String'
+                    )
+                )
+            )
+        ),
+        wsdlbinding_0 = 'wsdl:binding' : REGISTER OF (
+            name = '#name' : 'java.lang.String',
+            type = '#type' : 'java.lang.String',
+            wsdlsoapbinding_0 = 'wsdlsoap:binding' : REGISTER OF (
+                style = '#style' : 'java.lang.String',
+                transport = '#transport' : 'java.lang.String'
+            ),
+            wsdloperation_0 = 'wsdl:operation' : ARRAY OF (
+                wsdloperation_0 = 'wsdl:operation' : REGISTER OF (
+                    name = '#name' : 'java.lang.String',
+                    wsdlsoapoperation_0 = 'wsdlsoap:operation' : REGISTER OF (
+                        soapaction = '#soapAction' : 'java.lang.String'
+                    ),
+                    wsdlinput_0 = 'wsdl:input' : REGISTER OF (
+                        name = '#name' : 'java.lang.String',
+                        wsdlsoapbody_0 = 'wsdlsoap:body' : REGISTER OF (
+                            use = '#use' : 'java.lang.String'
+                        )
+                    ),
+                    wsdloutput_0 = 'wsdl:output' : REGISTER OF (
+                        name = '#name' : 'java.lang.String',
+                        wsdlsoapbody_0 = 'wsdlsoap:body' : REGISTER OF (
+                            use = '#use' : 'java.lang.String'
+                        )
+                    ),
+                    wsdlfault_0 = 'wsdl:fault' : REGISTER OF (
+                        name = '#name' : 'java.lang.String',
+                        wsdlsoapfault_0 = 'wsdlsoap:fault' : REGISTER OF (
+                            name = '#name' : 'java.lang.String',
+                            use = '#use' : 'java.lang.String'
+                        )
+                    )
+                )
+            )
+        ),
+        wsdlservice_0 = 'wsdl:service' : REGISTER OF (
+            name = '#name' : 'java.lang.String',
+            wsdlport_0 = 'wsdl:port' : REGISTER OF (
+                binding = '#binding' : 'java.lang.String',
+                name = '#name' : 'java.lang.String',
+                wsdlsoapaddress_0 = 'wsdlsoap:address' : REGISTER OF (
+                    location = '#location' : 'java.lang.String'
+                )
+            )
+        )
+    )
+    );
+
+CREATE OR REPLACE TYPE ds_excell_wsdltypes_0_schema_complextype_complextype_sequence_element_element AS REGISTER OF (maxoccurs:text, minoccurs:int, name:text, type:text);
+
+CREATE OR REPLACE TYPE ds_excell_wsdltypes_0_schema_complextype_complextype_sequence_element AS ARRAY OF ds_excell_wsdltypes_0_schema_complextype_complextype_sequence_element_element;
+
+CREATE OR REPLACE TYPE ds_excell_wsdltypes_0_schema_complextype_complextype_sequence AS REGISTER OF (element:ds_excell_wsdltypes_0_schema_complextype_complextype_sequence_element);
+
+CREATE OR REPLACE TYPE ds_excell_wsdltypes_0_schema_complextype_complextype AS REGISTER OF (name:text, sequence:ds_excell_wsdltypes_0_schema_complextype_complextype_sequence);
+
+CREATE OR REPLACE TYPE ds_excell_wsdltypes_0_schema_complextype AS ARRAY OF ds_excell_wsdltypes_0_schema_complextype_complextype;
+
+CREATE OR REPLACE TYPE ds_excell_wsdltypes_0_schema_element_element_complextype_sequence_element AS REGISTER OF (maxoccurs:text, minoccurs:int, name:text, type:text);
+
+CREATE OR REPLACE TYPE ds_excell_wsdltypes_0_schema_element_element_complextype_sequence AS REGISTER OF (element:ds_excell_wsdltypes_0_schema_element_element_complextype_sequence_element);
+
+CREATE OR REPLACE TYPE ds_excell_wsdltypes_0_schema_element_element_complextype AS REGISTER OF (sequence:ds_excell_wsdltypes_0_schema_element_element_complextype_sequence);
+
+CREATE OR REPLACE TYPE ds_excell_wsdltypes_0_schema_element_element AS REGISTER OF (name:text, type:text, complextype:ds_excell_wsdltypes_0_schema_element_element_complextype);
+
+CREATE OR REPLACE TYPE ds_excell_wsdltypes_0_schema_element AS ARRAY OF ds_excell_wsdltypes_0_schema_element_element;
+
+CREATE OR REPLACE TYPE ds_excell_wsdltypes_0_schema AS REGISTER OF (elementformdefault:text, targetnamespace:text, complextype:ds_excell_wsdltypes_0_schema_complextype, element:ds_excell_wsdltypes_0_schema_element);
+
+CREATE OR REPLACE TYPE ds_excell_wsdltypes_0 AS REGISTER OF (schema:ds_excell_wsdltypes_0_schema);
+
+CREATE OR REPLACE TYPE ds_excell_wsdlmessage_0_wsdlmessage_0_wsdlpart_0 AS REGISTER OF (element:text, name:text);
+
+CREATE OR REPLACE TYPE ds_excell_wsdlmessage_0_wsdlmessage_0 AS REGISTER OF (name:text, wsdlpart_0:ds_excell_wsdlmessage_0_wsdlmessage_0_wsdlpart_0);
+
+CREATE OR REPLACE TYPE ds_excell_wsdlmessage_0 AS ARRAY OF ds_excell_wsdlmessage_0_wsdlmessage_0;
+
+CREATE OR REPLACE TYPE ds_excell_wsdlporttype_0_wsdloperation_0_wsdloperation_0_wsdlinput_0 AS REGISTER OF (message:text, name:text);
+
+CREATE OR REPLACE TYPE ds_excell_wsdlporttype_0_wsdloperation_0_wsdloperation_0_wsdloutput_0 AS REGISTER OF (message:text, name:text);
+
+CREATE OR REPLACE TYPE ds_excell_wsdlporttype_0_wsdloperation_0_wsdloperation_0_wsdlfault_0 AS REGISTER OF (message:text, name:text);
+
+CREATE OR REPLACE TYPE ds_excell_wsdlporttype_0_wsdloperation_0_wsdloperation_0 AS REGISTER OF (name:text, parameterorder:text, wsdlinput_0:ds_excell_wsdlporttype_0_wsdloperation_0_wsdloperation_0_wsdlinput_0, wsdloutput_0:ds_excell_wsdlporttype_0_wsdloperation_0_wsdloperation_0_wsdloutput_0, wsdlfault_0:ds_excell_wsdlporttype_0_wsdloperation_0_wsdloperation_0_wsdlfault_0);
+
+CREATE OR REPLACE TYPE ds_excell_wsdlporttype_0_wsdloperation_0 AS ARRAY OF ds_excell_wsdlporttype_0_wsdloperation_0_wsdloperation_0;
+
+CREATE OR REPLACE TYPE ds_excell_wsdlporttype_0 AS REGISTER OF (name:text, wsdloperation_0:ds_excell_wsdlporttype_0_wsdloperation_0);
+
+CREATE OR REPLACE TYPE ds_excell_wsdlbinding_0_wsdlsoapbinding_0 AS REGISTER OF (style:text, transport:text);
+
+CREATE OR REPLACE TYPE ds_excell_wsdlbinding_0_wsdloperation_0_wsdloperation_0_wsdlsoapoperation_0 AS REGISTER OF (soapaction:text);
+
+CREATE OR REPLACE TYPE ds_excell_wsdlbinding_0_wsdloperation_0_wsdloperation_0_wsdlinput_0_wsdlsoapbody_0 AS REGISTER OF (use:text);
+
+CREATE OR REPLACE TYPE ds_excell_wsdlbinding_0_wsdloperation_0_wsdloperation_0_wsdlinput_0 AS REGISTER OF (name:text, wsdlsoapbody_0:ds_excell_wsdlbinding_0_wsdloperation_0_wsdloperation_0_wsdlinput_0_wsdlsoapbody_0);
+
+CREATE OR REPLACE TYPE ds_excell_wsdlbinding_0_wsdloperation_0_wsdloperation_0_wsdloutput_0_wsdlsoapbody_0 AS REGISTER OF (use:text);
+
+CREATE OR REPLACE TYPE ds_excell_wsdlbinding_0_wsdloperation_0_wsdloperation_0_wsdloutput_0 AS REGISTER OF (name:text, wsdlsoapbody_0:ds_excell_wsdlbinding_0_wsdloperation_0_wsdloperation_0_wsdloutput_0_wsdlsoapbody_0);
+
+CREATE OR REPLACE TYPE ds_excell_wsdlbinding_0_wsdloperation_0_wsdloperation_0_wsdlfault_0_wsdlsoapfault_0 AS REGISTER OF (name:text, use:text);
+
+CREATE OR REPLACE TYPE ds_excell_wsdlbinding_0_wsdloperation_0_wsdloperation_0_wsdlfault_0 AS REGISTER OF (name:text, wsdlsoapfault_0:ds_excell_wsdlbinding_0_wsdloperation_0_wsdloperation_0_wsdlfault_0_wsdlsoapfault_0);
+
+CREATE OR REPLACE TYPE ds_excell_wsdlbinding_0_wsdloperation_0_wsdloperation_0 AS REGISTER OF (name:text, wsdlsoapoperation_0:ds_excell_wsdlbinding_0_wsdloperation_0_wsdloperation_0_wsdlsoapoperation_0, wsdlinput_0:ds_excell_wsdlbinding_0_wsdloperation_0_wsdloperation_0_wsdlinput_0, wsdloutput_0:ds_excell_wsdlbinding_0_wsdloperation_0_wsdloperation_0_wsdloutput_0, wsdlfault_0:ds_excell_wsdlbinding_0_wsdloperation_0_wsdloperation_0_wsdlfault_0);
+
+CREATE OR REPLACE TYPE ds_excell_wsdlbinding_0_wsdloperation_0 AS ARRAY OF ds_excell_wsdlbinding_0_wsdloperation_0_wsdloperation_0;
+
+CREATE OR REPLACE TYPE ds_excell_wsdlbinding_0 AS REGISTER OF (name:text, type:text, wsdlsoapbinding_0:ds_excell_wsdlbinding_0_wsdlsoapbinding_0, wsdloperation_0:ds_excell_wsdlbinding_0_wsdloperation_0);
+
+CREATE OR REPLACE TYPE ds_excell_wsdlservice_0_wsdlport_0_wsdlsoapaddress_0 AS REGISTER OF (location:text);
+
+CREATE OR REPLACE TYPE ds_excell_wsdlservice_0_wsdlport_0 AS REGISTER OF (binding:text, name:text, wsdlsoapaddress_0:ds_excell_wsdlservice_0_wsdlport_0_wsdlsoapaddress_0);
+
+CREATE OR REPLACE TYPE ds_excell_wsdlservice_0 AS REGISTER OF (name:text, wsdlport_0:ds_excell_wsdlservice_0_wsdlport_0);
+
+CREATE OR REPLACE TABLE ds_excell I18N au_cst (
+        targetnamespace:text, 
+        wsdltypes_0:ds_excell_wsdltypes_0, 
+        wsdlmessage_0:ds_excell_wsdlmessage_0, 
+        wsdlporttype_0:ds_excell_wsdlporttype_0, 
+        wsdlbinding_0:ds_excell_wsdlbinding_0, 
+        wsdlservice_0:ds_excell_wsdlservice_0
+    )
+    FOLDER = '/data_source'
+    CACHE PARTIAL
+    BATCHSIZEINCACHE DEFAULT
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_excell(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD targetnamespace NOS ZERO ()
+             ADD wsdltypes_0 NOS ZERO ()
+             ADD wsdltypes_0.schema NOS ZERO ()
+             ADD wsdltypes_0.schema.elementformdefault NOS ZERO ()
+             ADD wsdltypes_0.schema.targetnamespace NOS ZERO ()
+             ADD wsdltypes_0.schema.complextype NOS ZERO ()
+             ADD wsdltypes_0.schema.complextype NOS ZERO ()
+             ADD wsdltypes_0.schema.complextype.name NOS ZERO ()
+             ADD wsdltypes_0.schema.complextype.sequence NOS ZERO ()
+             ADD wsdltypes_0.schema.complextype.sequence.element NOS ZERO ()
+             ADD wsdltypes_0.schema.complextype.sequence.element NOS ZERO ()
+             ADD wsdltypes_0.schema.complextype.sequence.element.maxoccurs NOS ZERO ()
+             ADD wsdltypes_0.schema.complextype.sequence.element.minoccurs NOS ZERO ()
+             ADD wsdltypes_0.schema.complextype.sequence.element.name NOS ZERO ()
+             ADD wsdltypes_0.schema.complextype.sequence.element.type NOS ZERO ()
+             ADD wsdltypes_0.schema.element NOS ZERO ()
+             ADD wsdltypes_0.schema.element NOS ZERO ()
+             ADD wsdltypes_0.schema.element.name NOS ZERO ()
+             ADD wsdltypes_0.schema.element.type NOS ZERO ()
+             ADD wsdltypes_0.schema.element.complextype NOS ZERO ()
+             ADD wsdltypes_0.schema.element.complextype.sequence NOS ZERO ()
+             ADD wsdltypes_0.schema.element.complextype.sequence.element NOS ZERO ()
+             ADD wsdltypes_0.schema.element.complextype.sequence.element.maxoccurs NOS ZERO ()
+             ADD wsdltypes_0.schema.element.complextype.sequence.element.minoccurs NOS ZERO ()
+             ADD wsdltypes_0.schema.element.complextype.sequence.element.name NOS ZERO ()
+             ADD wsdltypes_0.schema.element.complextype.sequence.element.type NOS ZERO ()
+             ADD wsdlmessage_0 NOS ZERO ()
+             ADD wsdlmessage_0 NOS ZERO ()
+             ADD wsdlmessage_0.name NOS ZERO ()
+             ADD wsdlmessage_0.wsdlpart_0 NOS ZERO ()
+             ADD wsdlmessage_0.wsdlpart_0.element NOS ZERO ()
+             ADD wsdlmessage_0.wsdlpart_0.name NOS ZERO ()
+             ADD wsdlporttype_0 NOS ZERO ()
+             ADD wsdlporttype_0.name NOS ZERO ()
+             ADD wsdlporttype_0.wsdloperation_0 NOS ZERO ()
+             ADD wsdlporttype_0.wsdloperation_0 NOS ZERO ()
+             ADD wsdlporttype_0.wsdloperation_0.name NOS ZERO ()
+             ADD wsdlporttype_0.wsdloperation_0.parameterorder NOS ZERO ()
+             ADD wsdlporttype_0.wsdloperation_0.wsdlinput_0 NOS ZERO ()
+             ADD wsdlporttype_0.wsdloperation_0.wsdlinput_0.message NOS ZERO ()
+             ADD wsdlporttype_0.wsdloperation_0.wsdlinput_0.name NOS ZERO ()
+             ADD wsdlporttype_0.wsdloperation_0.wsdloutput_0 NOS ZERO ()
+             ADD wsdlporttype_0.wsdloperation_0.wsdloutput_0.message NOS ZERO ()
+             ADD wsdlporttype_0.wsdloperation_0.wsdloutput_0.name NOS ZERO ()
+             ADD wsdlporttype_0.wsdloperation_0.wsdlfault_0 NOS ZERO ()
+             ADD wsdlporttype_0.wsdloperation_0.wsdlfault_0.message NOS ZERO ()
+             ADD wsdlporttype_0.wsdloperation_0.wsdlfault_0.name NOS ZERO ()
+             ADD wsdlbinding_0 NOS ZERO ()
+             ADD wsdlbinding_0.name NOS ZERO ()
+             ADD wsdlbinding_0.type NOS ZERO ()
+             ADD wsdlbinding_0.wsdlsoapbinding_0 NOS ZERO ()
+             ADD wsdlbinding_0.wsdlsoapbinding_0.style NOS ZERO ()
+             ADD wsdlbinding_0.wsdlsoapbinding_0.transport NOS ZERO ()
+             ADD wsdlbinding_0.wsdloperation_0 NOS ZERO ()
+             ADD wsdlbinding_0.wsdloperation_0 NOS ZERO ()
+             ADD wsdlbinding_0.wsdloperation_0.name NOS ZERO ()
+             ADD wsdlbinding_0.wsdloperation_0.wsdlsoapoperation_0 NOS ZERO ()
+             ADD wsdlbinding_0.wsdloperation_0.wsdlsoapoperation_0.soapaction NOS ZERO ()
+             ADD wsdlbinding_0.wsdloperation_0.wsdlinput_0 NOS ZERO ()
+             ADD wsdlbinding_0.wsdloperation_0.wsdlinput_0.name NOS ZERO ()
+             ADD wsdlbinding_0.wsdloperation_0.wsdlinput_0.wsdlsoapbody_0 NOS ZERO ()
+             ADD wsdlbinding_0.wsdloperation_0.wsdlinput_0.wsdlsoapbody_0.use NOS ZERO ()
+             ADD wsdlbinding_0.wsdloperation_0.wsdloutput_0 NOS ZERO ()
+             ADD wsdlbinding_0.wsdloperation_0.wsdloutput_0.name NOS ZERO ()
+             ADD wsdlbinding_0.wsdloperation_0.wsdloutput_0.wsdlsoapbody_0 NOS ZERO ()
+             ADD wsdlbinding_0.wsdloperation_0.wsdloutput_0.wsdlsoapbody_0.use NOS ZERO ()
+             ADD wsdlbinding_0.wsdloperation_0.wsdlfault_0 NOS ZERO ()
+             ADD wsdlbinding_0.wsdloperation_0.wsdlfault_0.name NOS ZERO ()
+             ADD wsdlbinding_0.wsdloperation_0.wsdlfault_0.wsdlsoapfault_0 NOS ZERO ()
+             ADD wsdlbinding_0.wsdloperation_0.wsdlfault_0.wsdlsoapfault_0.name NOS ZERO ()
+             ADD wsdlbinding_0.wsdloperation_0.wsdlfault_0.wsdlsoapfault_0.use NOS ZERO ()
+             ADD wsdlservice_0 NOS ZERO ()
+             ADD wsdlservice_0.name NOS ZERO ()
+             ADD wsdlservice_0.wsdlport_0 NOS ZERO ()
+             ADD wsdlservice_0.wsdlport_0.binding NOS ZERO ()
+             ADD wsdlservice_0.wsdlport_0.name NOS ZERO ()
+             ADD wsdlservice_0.wsdlport_0.wsdlsoapaddress_0 NOS ZERO ()
+             ADD wsdlservice_0.wsdlport_0.wsdlsoapaddress_0.location NOS ZERO ()
+        )
+        OUTPUTLIST (targetnamespace, wsdlbinding_0, wsdlmessage_0, wsdlporttype_0, wsdlservice_0, wsdltypes_0
+        )
+        WRAPPER (xml ds_excell_6551)
+    );
+

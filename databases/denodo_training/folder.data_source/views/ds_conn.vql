@@ -1,0 +1,32 @@
+﻿CREATE OR REPLACE WRAPPER DF ds_conn_1196
+    FOLDER = '/data_source'
+    DATASOURCENAME=ds_conn
+    OUTPUTSCHEMA (
+        column0 = 'Column0' (OPT),
+        column1 = 'Column1' (OPT),
+        column2 = 'Column2' (OPT),
+        column3 = 'Column3' (OPT)
+    );
+
+CREATE OR REPLACE TABLE ds_conn I18N au_cst (
+        column0:text, 
+        column1:text, 
+        column2:text, 
+        column3:text
+    )
+    FOLDER = '/data_source'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_conn(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD column0 (=,in) OPT ANY
+             ADD column1 (=,in) OPT ANY
+             ADD column2 (=,in) OPT ANY
+             ADD column3 (=,in) OPT ANY
+        )
+        OUTPUTLIST (column0, column1, column2, column3
+        )
+        WRAPPER (df ds_conn_1196)
+    );
+

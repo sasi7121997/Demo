@@ -1,0 +1,26 @@
+﻿CREATE OR REPLACE REST WEBSERVICE ds_excell
+    CONNECTION (
+        CHUNKSIZE = 1000
+        CHUNKTIMEOUT = 90000
+        QUERYTIMEOUT = 900000
+        POOLENABLED = true
+        POOLINITSIZE = 0
+        POOLMAXACTIVE = 30
+    )
+    DEFAULTREPRESENTATION = HTML
+    SUPPORTEDREPRESENTATIONS (HTML, XML, JSON)
+    RESOURCES (
+        VIEW ds_excell FIELDS (
+            targetnamespace : 'text', 
+            wsdltypes_0 : 'ds_excell_wsdltypes_0', 
+            wsdlmessage_0 : 'ds_excell_wsdlmessage_0', 
+            wsdlporttype_0 : 'ds_excell_wsdlporttype_0', 
+            wsdlbinding_0 : 'ds_excell_wsdlbinding_0', 
+            wsdlservice_0 : 'ds_excell_wsdlservice_0'
+        )
+    )
+    OPTIONS ( NULLVALUESASEMPTYXMLELEMENTS = false
+        PROCESS_FUNCTIONS_IN_SELECT_PARAMETER = true ) 
+    OPENAPI2 ( API_VERSION = '1.0.0' ) 
+    FOLDER = '/data_source';
+

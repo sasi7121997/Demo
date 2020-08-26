@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW stock_j_bv_wo_dis_from_storage FOLDER = '/base_view' AS SELECT stock.product_id AS product_id, stock.storage_id AS storage_id, count(*) AS amount FROM stock AS stock INNER JOIN bv_wo_dis_from_storage AS bv_wo_dis_from_storage ON stock.storage_id = bv_wo_dis_from_storage.storage_id  GROUP BY stock.product_id, stock.storage_id;
+
+ALTER VIEW stock_j_bv_wo_dis_from_storage
+ LAYOUT (stock = [20, 20, 200, 106], bv_wo_dis_from_storage = [310, 120, 200, 86]);
+

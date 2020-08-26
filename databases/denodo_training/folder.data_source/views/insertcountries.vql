@@ -1,0 +1,40 @@
+﻿CREATE OR REPLACE WRAPPER WS insertcountries
+    FOLDER = '/data_source'
+    DATASOURCENAME=ds_product
+    SERVICENAME='countriesService'
+    PORTNAME='countries'
+    OPERATIONNAME='insertCOUNTRIES'
+    INPUTMESSAGE='insertCOUNTRIESRequest'
+    OUTPUTMESSAGE='insertCOUNTRIESResponse'
+    OUTPUTSCHEMA (
+    insertcountries = '$$0': REGISTER OF (
+        country_id='COUNTRY_ID' (OBL),
+        country_name='COUNTRY_NAME' (OBL),
+        region_id='REGION_ID' (OBL)
+    ),
+    return='$$$$'
+    );
+
+CREATE OR REPLACE TYPE insertcountries_insertcountries AS REGISTER OF (country_id:text, country_name:text, region_id:decimal);
+
+CREATE OR REPLACE TABLE insertcountries I18N au_cst (
+        insertcountries:insertcountries_insertcountries, 
+        return:long
+    )
+    FOLDER = '/data_source'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD insertcountries(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD insertcountries (=,is null) OPT ONE
+             ADD insertcountries.country_id (=) OBL ONE
+             ADD insertcountries.country_name (=) OBL ONE
+             ADD insertcountries.region_id (=) OBL ONE
+             ADD return NOS ZERO ()
+        )
+        OUTPUTLIST (insertcountries, return
+        )
+        WRAPPER (ws insertcountries)
+    );
+

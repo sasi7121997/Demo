@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW p_delivery FOLDER = '/base_view' AS SELECT order_item_id AS order_item_id, register(date_sent, date_received) AS mmm FROM delivery GROUP BY order_item_id, date_received, date_sent;
+
+ALTER VIEW p_delivery
+ LAYOUT (delivery = [20, 20, 228, 126]);
+

@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW departments_j_employees FOLDER = '/base_view' AS SELECT departments.department_id AS department_id1, departments.department_name AS department_name, departments.manager_id AS manager_id1, departments.location_id AS location_id, employees.employee_id AS employee_id, employees.first_name AS first_name, employees.last_name AS last_name, employees.email AS email, employees.phone_number AS phone_number, employees.hire_date AS hire_date, employees.job_id AS job_id, employees.salary AS salary, employees.commission_pct AS commission_pct, employees.manager_id AS manager_id, employees.department_id AS department_id FROM departments AS departments HASH LEFT OUTER JOIN employees AS employees ON (departments.manager_id = employees.manager_id AND departments.department_id = employees.department_id)  CONTEXT (QUERYPLAN = departments_j_employees : ANY ORDERED);
+
+ALTER VIEW departments_j_employees
+ LAYOUT (departments = [20, 20, 200, 106], employees = [302, 87, 200, 225]);
+

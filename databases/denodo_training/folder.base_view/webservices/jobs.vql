@@ -1,0 +1,77 @@
+﻿CREATE OR REPLACE SOAP WEBSERVICE jobs
+    CONNECTION (
+        CHUNKSIZE = 1000
+        CHUNKTIMEOUT = 90000
+        QUERYTIMEOUT = 900000
+        POOLENABLED = true
+        POOLINITSIZE = 0
+        POOLMAXACTIVE = 30
+    )
+    I18N  = au_cst
+    DATETYPEMAPPING DATE
+    NOWRAPARRAYS
+    RAISEFAULTONIDU
+    DONOTAPPLYOUTPUTXSLTTOERRORS
+    OUTPUT 
+        ( STYLE DOCUMENT )
+    OPERATION 'getJOBSByJOB_IDAndJOB_TITLEAndMIN_SALARYAndMAX_SALARY' (
+        TYPE SELECT
+        SCHEMA VIEW jobs
+        VQL = 'SELECT job_id, job_title, min_salary, max_salary FROM jobs ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@VERBOSEERRORS,"")^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'GetJOBSByJOB_IDAndJOB_TITLEAndMIN_SALARYAndMAX_SALARY' (
+            'JOB_ID' job_id:'text' '=' 
+            'JOB_TITLE' job_title:'text' '=' 
+            'MIN_SALARY' min_salary:'int' '=' 
+            'MAX_SALARY' max_salary:'int' '=' 
+        )
+        OUTPUT 
+            'JOBSReturn': Array of ( 'JOBSReturnRow': Register of (
+                job_id : 'text',
+                job_title : 'text',
+                min_salary : 'int',
+                max_salary : 'int'
+            ) (
+                    '/job_id'='JOB_ID',
+                    '/job_title'='JOB_TITLE',
+                    '/max_salary'='MAX_SALARY',
+                    '/min_salary'='MIN_SALARY'))
+    )    OPERATION 'insertJOBS' (
+        TYPE INSERT
+        SCHEMA VIEW jobs
+        VQL = 'INSERT INTO jobs (job_id, job_title, min_salary, max_salary) VALUES (@JOB_ID, @JOB_TITLE, @MIN_SALARY, @MAX_SALARY) CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'InsertJOBS' (
+            'JOB_ID' job_id:'text' '=' OBL 
+            'JOB_TITLE' job_title:'text' '=' OBL 
+            'MIN_SALARY' min_salary:'int' '=' 
+            'MAX_SALARY' max_salary:'int' '=' 
+        )
+        OUTPUT 'long'
+    )    OPERATION 'deleteJOBS' (
+        TYPE DELETE
+        SCHEMA VIEW jobs
+        VQL = 'DELETE FROM jobs ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'DeleteJOBS' (
+            'JOB_ID' job_id:'text' '=' 
+            'JOB_TITLE' job_title:'text' '=' 
+            'MIN_SALARY' min_salary:'int' '=' 
+            'MAX_SALARY' max_salary:'int' '=' 
+        )
+        OUTPUT 'long'
+    )    OPERATION 'updateJOBS' (
+        TYPE UPDATE
+        SCHEMA VIEW jobs
+        VQL = 'UPDATE jobs SET job_id=@newJOB_ID, job_title=@newJOB_TITLE, min_salary=@newMIN_SALARY, max_salary=@newMAX_SALARY ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'UpdateJOBS' (
+            'JOB_ID' job_id:'text' '=' 
+            'JOB_TITLE' job_title:'text' '=' 
+            'MIN_SALARY' min_salary:'int' '=' 
+            'MAX_SALARY' max_salary:'int' '=' 
+            SET 'newJOB_ID' job_id:'text' '=' OBL 
+            SET 'newJOB_TITLE' job_title:'text' '=' OBL 
+            SET 'newMIN_SALARY' min_salary:'int' '=' 
+            SET 'newMAX_SALARY' max_salary:'int' '=' 
+        )
+        OUTPUT 'long'
+    )
+    FOLDER = '/base_view';
+

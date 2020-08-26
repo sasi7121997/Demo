@@ -1,0 +1,118 @@
+﻿CREATE OR REPLACE SOAP WEBSERVICE customer_test11
+    CONNECTION (
+        CHUNKSIZE = 1000
+        CHUNKTIMEOUT = 90000
+        QUERYTIMEOUT = 900000
+        POOLENABLED = true
+        POOLINITSIZE = 0
+        POOLMAXACTIVE = 30
+    )
+    I18N  = au_cst
+    DATETYPEMAPPING DATE
+    NOWRAPARRAYS
+    RAISEFAULTONIDU
+    DONOTAPPLYOUTPUTXSLTTOERRORS
+    OUTPUT 
+        ( STYLE DOCUMENT )
+    OPERATION 'getCUSTOMER_TEST11ByIDAndCUSTOMER_CODE_INTERNALAndFIRST_NAMEAndLAST_NAMEAndEMAILAndPHONEAndMAIN_ADDR' (
+        TYPE SELECT
+        SCHEMA VIEW customer_test11
+        VQL = 'SELECT id, customer_code_internal, first_name, last_name, email, phone, main_address, main_postcode, main_country, registered_date FROM customer_test11 ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@VERBOSEERRORS,"")^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'GetCUSTOMER_TEST11ByIDAndCUSTOMER_CODE_INTERNALAndFIRST_NAMEAndLAST_NAMEAndEMAILAndPHONEAndMAIN_ADDR' (
+            'CUSTOMER_CODE_INTERNAL' customer_code_internal:'text' '=' 
+            'FIRST_NAME' first_name:'text' '=' 
+            'LAST_NAME' last_name:'text' '=' 
+            'EMAIL' email:'text' '=' 
+            'PHONE' phone:'text' '=' 
+            'MAIN_ADDRESS' main_address:'text' '=' 
+            'MAIN_POSTCODE' main_postcode:'text' '=' 
+            'MAIN_COUNTRY' main_country:'text' '=' 
+            'REGISTERED_DATE' registered_date:'timestamp' '=' 
+        )
+        OUTPUT 
+            'CUSTOMER_TEST11Return': Array of ( 'CUSTOMER_TEST11ReturnRow': Register of (
+                id : 'decimal',
+                customer_code_internal : 'text',
+                first_name : 'text',
+                last_name : 'text',
+                email : 'text',
+                phone : 'text',
+                main_address : 'text',
+                main_postcode : 'text',
+                main_country : 'text',
+                registered_date : 'timestamp'
+            ) (
+                    '/customer_code_internal'='CUSTOMER_CODE_INTERNAL',
+                    '/email'='EMAIL',
+                    '/first_name'='FIRST_NAME',
+                    '/id'='ID',
+                    '/last_name'='LAST_NAME',
+                    '/main_address'='MAIN_ADDRESS',
+                    '/main_country'='MAIN_COUNTRY',
+                    '/main_postcode'='MAIN_POSTCODE',
+                    '/phone'='PHONE',
+                    '/registered_date'='REGISTERED_DATE'))
+    )    OPERATION 'insertCUSTOMER_TEST11' (
+        TYPE INSERT
+        SCHEMA VIEW customer_test11
+        VQL = 'INSERT INTO customer_test11 (id, customer_code_internal, first_name, last_name, email, phone, main_address, main_postcode, main_country, registered_date) VALUES (@ID, @CUSTOMER_CODE_INTERNAL, @FIRST_NAME, @LAST_NAME, @EMAIL, @PHONE, @MAIN_ADDRESS, @MAIN_POSTCODE, @MAIN_COUNTRY, @REGISTERED_DATE) CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'InsertCUSTOMER_TEST11' (
+            'ID' id:'decimal' '=' OBL 
+            'CUSTOMER_CODE_INTERNAL' customer_code_internal:'text' '=' OBL 
+            'FIRST_NAME' first_name:'text' '=' OBL 
+            'LAST_NAME' last_name:'text' '=' 
+            'EMAIL' email:'text' '=' OBL 
+            'PHONE' phone:'text' '=' 
+            'MAIN_ADDRESS' main_address:'text' '=' 
+            'MAIN_POSTCODE' main_postcode:'text' '=' 
+            'MAIN_COUNTRY' main_country:'text' '=' 
+            'REGISTERED_DATE' registered_date:'timestamp' '=' OBL 
+        )
+        OUTPUT 'long'
+    )    OPERATION 'deleteCUSTOMER_TEST11' (
+        TYPE DELETE
+        SCHEMA VIEW customer_test11
+        VQL = 'DELETE FROM customer_test11 ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'DeleteCUSTOMER_TEST11' (
+            'ID' id:'decimal' '=' 
+            'CUSTOMER_CODE_INTERNAL' customer_code_internal:'text' '=' 
+            'FIRST_NAME' first_name:'text' '=' 
+            'LAST_NAME' last_name:'text' '=' 
+            'EMAIL' email:'text' '=' 
+            'PHONE' phone:'text' '=' 
+            'MAIN_ADDRESS' main_address:'text' '=' 
+            'MAIN_POSTCODE' main_postcode:'text' '=' 
+            'MAIN_COUNTRY' main_country:'text' '=' 
+            'REGISTERED_DATE' registered_date:'timestamp' '=' 
+        )
+        OUTPUT 'long'
+    )    OPERATION 'updateCUSTOMER_TEST11' (
+        TYPE UPDATE
+        SCHEMA VIEW customer_test11
+        VQL = 'UPDATE customer_test11 SET id=@newID, customer_code_internal=@newCUSTOMER_CODE_INTERNAL, first_name=@newFIRST_NAME, last_name=@newLAST_NAME, email=@newEMAIL, phone=@newPHONE, main_address=@newMAIN_ADDRESS, main_postcode=@newMAIN_POSTCODE, main_country=@newMAIN_COUNTRY, registered_date=@newREGISTERED_DATE ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'UpdateCUSTOMER_TEST11' (
+            'ID' id:'decimal' '=' 
+            'CUSTOMER_CODE_INTERNAL' customer_code_internal:'text' '=' 
+            'FIRST_NAME' first_name:'text' '=' 
+            'LAST_NAME' last_name:'text' '=' 
+            'EMAIL' email:'text' '=' 
+            'PHONE' phone:'text' '=' 
+            'MAIN_ADDRESS' main_address:'text' '=' 
+            'MAIN_POSTCODE' main_postcode:'text' '=' 
+            'MAIN_COUNTRY' main_country:'text' '=' 
+            'REGISTERED_DATE' registered_date:'timestamp' '=' 
+            SET 'newID' id:'decimal' '=' OBL 
+            SET 'newCUSTOMER_CODE_INTERNAL' customer_code_internal:'text' '=' OBL 
+            SET 'newFIRST_NAME' first_name:'text' '=' OBL 
+            SET 'newLAST_NAME' last_name:'text' '=' 
+            SET 'newEMAIL' email:'text' '=' OBL 
+            SET 'newPHONE' phone:'text' '=' 
+            SET 'newMAIN_ADDRESS' main_address:'text' '=' 
+            SET 'newMAIN_POSTCODE' main_postcode:'text' '=' 
+            SET 'newMAIN_COUNTRY' main_country:'text' '=' 
+            SET 'newREGISTERED_DATE' registered_date:'timestamp' '=' OBL 
+        )
+        OUTPUT 'long'
+    )
+    FOLDER = '/data_source';
+

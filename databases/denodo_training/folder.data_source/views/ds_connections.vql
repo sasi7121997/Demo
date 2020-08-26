@@ -1,0 +1,23 @@
+﻿CREATE OR REPLACE WRAPPER DF ds_connections_7178
+    FOLDER = '/data_source'
+    DATASOURCENAME=ds_connections
+    OUTPUTSCHEMA (
+        column0 = 'Column0' (OPT)
+    );
+
+CREATE OR REPLACE TABLE ds_connections I18N au_cst (
+        column0:text
+    )
+    FOLDER = '/data_source'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_connections(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD column0 (=,in) OPT ANY
+        )
+        OUTPUTLIST (column0
+        )
+        WRAPPER (df ds_connections_7178)
+    );
+

@@ -1,0 +1,67 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC pr_get_all_service_request_1608
+    DATASOURCENAME=ds_web_orders
+    SCHEMANAME='${databases.denodo_training.views.jdbc.pr_get_all_service_request_1608.SCHEMANAME}' 
+    PACKAGENAME='PKG_SUPPORT_DB' 
+    PROCEDURENAME='PR_GET_ALL_SERVICE_REQUEST' 
+    OUTPUTSCHEMA (
+        o_record = 'O_RECORD': ARRAY OF (
+            o_record = 'O_RECORD' : REGISTER OF (
+                sr_date = 'SR_DATE' :'java.time.LocalDateTime' (sourcetypedecimals='6', sourcetypesize='0', sourcetypeid='93', sourcetypename='TIMESTAMP')  NOT NULL NOT SORTABLE,
+                sr_description = 'SR_DESCRIPTION' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='2000', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL NOT SORTABLE,
+                customer_ip = 'CUSTOMER_IP' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='100', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL NOT SORTABLE,
+                global_case_id = 'GLOBAL_CASE_ID' :'java.math.BigDecimal' (sourcetypeid='2', sourcetypename='NUMBER')  NOT NULL NOT SORTABLE,
+                case_creation_date = 'CASE_CREATION_DATE' :'java.time.LocalDateTime' (sourcetypedecimals='6', sourcetypesize='0', sourcetypeid='93', sourcetypename='TIMESTAMP')  NOT SORTABLE,
+                case_closed_date = 'CASE_CLOSED_DATE' :'java.time.LocalDateTime' (sourcetypedecimals='6', sourcetypesize='0', sourcetypeid='93', sourcetypename='TIMESTAMP')  NOT SORTABLE,
+                case_summary = 'CASE_SUMMARY' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='2000', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL NOT SORTABLE,
+                status_code = 'STATUS_CODE' :'java.math.BigDecimal' (sourcetypedecimals='0', sourcetypesize='38', sourcetypeid='2', sourcetypename='NUMBER')  NOT NULL NOT SORTABLE,
+                status_description = 'STATUS_DESCRIPTION' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='200', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT SORTABLE,
+                customer_code = 'CUSTOMER_CODE' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='20', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT SORTABLE,
+                customer_name = 'CUSTOMER_NAME' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT SORTABLE,
+                customer_address = 'CUSTOMER_ADDRESS' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='100', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT SORTABLE,
+                customer_phone = 'CUSTOMER_PHONE' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='20', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT SORTABLE,
+                customer_job_title = 'CUSTOMER_JOB_TITLE' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT SORTABLE,
+                agent_id = 'AGENT_ID' :'java.math.BigDecimal' (sourcetypeid='2', sourcetypename='NUMBER')  NOT NULL NOT SORTABLE,
+                agent_code = 'AGENT_CODE' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='20', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL NOT SORTABLE,
+                agent_name = 'AGENT_NAME' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='100', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL NOT SORTABLE
+            ) NOT SORTABLE NOT UPDATEABLE
+        ) (sourcetypeid='1111', sourcetypename='REF CURSOR')  NOT NULL NOT SORTABLE NOT UPDATEABLE ISCURSOR PARAMINDEX=1 PARAMTYPE=4
+    );
+
+CREATE OR REPLACE TYPE pr_get_all_service_request_o_record_o_record AS REGISTER OF (sr_date:timestamp (sourcetypedecimals = '6', sourcetypesize = '0', sourcetypeid = '93'), sr_description:text (sourcetypedecimals = '0', sourcetypesize = '2000', sourcetypeid = '12'), customer_ip:text (sourcetypedecimals = '0', sourcetypesize = '100', sourcetypeid = '12'), global_case_id:decimal (sourcetypeid = '3'), case_creation_date:timestamp (sourcetypedecimals = '6', sourcetypesize = '0', sourcetypeid = '93'), case_closed_date:timestamp (sourcetypedecimals = '6', sourcetypesize = '0', sourcetypeid = '93'), case_summary:text (sourcetypedecimals = '0', sourcetypesize = '2000', sourcetypeid = '12'), status_code:decimal (sourcetypedecimals = '0', sourcetypesize = '38', sourcetypeid = '3'), status_description:text (sourcetypedecimals = '0', sourcetypesize = '200', sourcetypeid = '12'), customer_code:text (sourcetypedecimals = '0', sourcetypesize = '20', sourcetypeid = '12'), customer_name:text (sourcetypedecimals = '0', sourcetypesize = '50', sourcetypeid = '12'), customer_address:text (sourcetypedecimals = '0', sourcetypesize = '100', sourcetypeid = '12'), customer_phone:text (sourcetypedecimals = '0', sourcetypesize = '20', sourcetypeid = '12'), customer_job_title:text (sourcetypedecimals = '0', sourcetypesize = '50', sourcetypeid = '12'), agent_id:decimal (sourcetypeid = '3'), agent_code:text (sourcetypedecimals = '0', sourcetypesize = '20', sourcetypeid = '12'), agent_name:text (sourcetypedecimals = '0', sourcetypesize = '100', sourcetypeid = '12'));
+
+CREATE OR REPLACE TYPE pr_get_all_service_request_o_record AS ARRAY OF pr_get_all_service_request_o_record_o_record;
+
+CREATE OR REPLACE TABLE pr_get_all_service_request I18N au_cst (
+        o_record:pr_get_all_service_request_o_record
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD pr_get_all_service_request(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD o_record NOS ZERO ()
+             ADD o_record NOS ZERO ()
+             ADD o_record.sr_date NOS ZERO ()
+             ADD o_record.sr_description NOS ZERO ()
+             ADD o_record.customer_ip NOS ZERO ()
+             ADD o_record.global_case_id NOS ZERO ()
+             ADD o_record.case_creation_date NOS ZERO ()
+             ADD o_record.case_closed_date NOS ZERO ()
+             ADD o_record.case_summary NOS ZERO ()
+             ADD o_record.status_code NOS ZERO ()
+             ADD o_record.status_description NOS ZERO ()
+             ADD o_record.customer_code NOS ZERO ()
+             ADD o_record.customer_name NOS ZERO ()
+             ADD o_record.customer_address NOS ZERO ()
+             ADD o_record.customer_phone NOS ZERO ()
+             ADD o_record.customer_job_title NOS ZERO ()
+             ADD o_record.agent_id NOS ZERO ()
+             ADD o_record.agent_code NOS ZERO ()
+             ADD o_record.agent_name NOS ZERO ()
+        )
+        OUTPUTLIST (o_record
+        )
+        WRAPPER (jdbc pr_get_all_service_request_1608)
+    );
+

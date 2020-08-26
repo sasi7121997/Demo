@@ -1,0 +1,7 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JSON ds_res
+    FOLDER = '/data_source'
+    ROUTE HTTP 'http.CommonsHttpClientConnection,120000' GET '${databases.denodo_training.folder.data_source.datasources.json.ds_res.ROUTE.HTTP.URL}'
+    AUTHENTICATION OFF
+    PROXY OFF;
+

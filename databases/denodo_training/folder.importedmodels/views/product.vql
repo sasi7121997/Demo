@@ -1,0 +1,7 @@
+﻿CREATE OR REPLACE INTERFACE VIEW product (
+        productid:int,
+        productname:text,
+        productprice:float
+    )
+    FOLDER = '/importedmodels';
+

@@ -1,0 +1,126 @@
+﻿CREATE OR REPLACE SOAP WEBSERVICE employees
+    CONNECTION (
+        CHUNKSIZE = 1000
+        CHUNKTIMEOUT = 90000
+        QUERYTIMEOUT = 900000
+        POOLENABLED = true
+        POOLINITSIZE = 0
+        POOLMAXACTIVE = 30
+    )
+    I18N  = au_cst
+    DATETYPEMAPPING DATE
+    NOWRAPARRAYS
+    RAISEFAULTONIDU
+    DONOTAPPLYOUTPUTXSLTTOERRORS
+    OUTPUT 
+        ( STYLE DOCUMENT )
+    OPERATION 'getEMPLOYEESByEMPLOYEE_IDAndFIRST_NAMEAndLAST_NAMEAndEMAILAndPHONE_NUMBERAndHIRE_DATEAndJOB_IDAndSAL' (
+        TYPE SELECT
+        SCHEMA VIEW employees
+        VQL = 'SELECT employee_id, first_name, last_name, email, phone_number, hire_date, job_id, salary, commission_pct, manager_id, department_id FROM employees ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@VERBOSEERRORS,"")^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'GetEMPLOYEESByEMPLOYEE_IDAndFIRST_NAMEAndLAST_NAMEAndEMAILAndPHONE_NUMBERAndHIRE_DATEAndJOB_IDAndSAL' (
+            'EMPLOYEE_ID' employee_id:'int' '=' 
+            'FIRST_NAME' first_name:'text' '=' 
+            'LAST_NAME' last_name:'text' '=' 
+            'EMAIL' email:'text' '=' 
+            'PHONE_NUMBER' phone_number:'text' '=' 
+            'HIRE_DATE' hire_date:'timestamp' '=' 
+            'JOB_ID' job_id:'text' '=' 
+            'SALARY' salary:'decimal' '=' 
+            'COMMISSION_PCT' commission_pct:'decimal' '=' 
+            'MANAGER_ID' manager_id:'int' '=' 
+            'DEPARTMENT_ID' department_id:'int' '=' 
+        )
+        OUTPUT 
+            'EMPLOYEESReturn': Array of ( 'EMPLOYEESReturnRow': Register of (
+                employee_id : 'int',
+                first_name : 'text',
+                last_name : 'text',
+                email : 'text',
+                phone_number : 'text',
+                hire_date : 'timestamp',
+                job_id : 'text',
+                salary : 'decimal',
+                commission_pct : 'decimal',
+                manager_id : 'int',
+                department_id : 'int'
+            ) (
+                    '/commission_pct'='COMMISSION_PCT',
+                    '/department_id'='DEPARTMENT_ID',
+                    '/email'='EMAIL',
+                    '/employee_id'='EMPLOYEE_ID',
+                    '/first_name'='FIRST_NAME',
+                    '/hire_date'='HIRE_DATE',
+                    '/job_id'='JOB_ID',
+                    '/last_name'='LAST_NAME',
+                    '/manager_id'='MANAGER_ID',
+                    '/phone_number'='PHONE_NUMBER',
+                    '/salary'='SALARY'))
+    )    OPERATION 'insertEMPLOYEES' (
+        TYPE INSERT
+        SCHEMA VIEW employees
+        VQL = 'INSERT INTO employees (employee_id, first_name, last_name, email, phone_number, hire_date, job_id, salary, commission_pct, manager_id, department_id) VALUES (@EMPLOYEE_ID, @FIRST_NAME, @LAST_NAME, @EMAIL, @PHONE_NUMBER, @HIRE_DATE, @JOB_ID, @SALARY, @COMMISSION_PCT, @MANAGER_ID, @DEPARTMENT_ID) CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'InsertEMPLOYEES' (
+            'EMPLOYEE_ID' employee_id:'int' '=' OBL 
+            'FIRST_NAME' first_name:'text' '=' 
+            'LAST_NAME' last_name:'text' '=' OBL 
+            'EMAIL' email:'text' '=' OBL 
+            'PHONE_NUMBER' phone_number:'text' '=' 
+            'HIRE_DATE' hire_date:'timestamp' '=' OBL 
+            'JOB_ID' job_id:'text' '=' OBL 
+            'SALARY' salary:'decimal' '=' 
+            'COMMISSION_PCT' commission_pct:'decimal' '=' 
+            'MANAGER_ID' manager_id:'int' '=' 
+            'DEPARTMENT_ID' department_id:'int' '=' 
+        )
+        OUTPUT 'long'
+    )    OPERATION 'deleteEMPLOYEES' (
+        TYPE DELETE
+        SCHEMA VIEW employees
+        VQL = 'DELETE FROM employees ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'DeleteEMPLOYEES' (
+            'EMPLOYEE_ID' employee_id:'int' '=' 
+            'FIRST_NAME' first_name:'text' '=' 
+            'LAST_NAME' last_name:'text' '=' 
+            'EMAIL' email:'text' '=' 
+            'PHONE_NUMBER' phone_number:'text' '=' 
+            'HIRE_DATE' hire_date:'timestamp' '=' 
+            'JOB_ID' job_id:'text' '=' 
+            'SALARY' salary:'decimal' '=' 
+            'COMMISSION_PCT' commission_pct:'decimal' '=' 
+            'MANAGER_ID' manager_id:'int' '=' 
+            'DEPARTMENT_ID' department_id:'int' '=' 
+        )
+        OUTPUT 'long'
+    )    OPERATION 'updateEMPLOYEES' (
+        TYPE UPDATE
+        SCHEMA VIEW employees
+        VQL = 'UPDATE employees SET employee_id=@newEMPLOYEE_ID, first_name=@newFIRST_NAME, last_name=@newLAST_NAME, email=@newEMAIL, phone_number=@newPHONE_NUMBER, hire_date=@newHIRE_DATE, job_id=@newJOB_ID, salary=@newSALARY, commission_pct=@newCOMMISSION_PCT, manager_id=@newMANAGER_ID, department_id=@newDEPARTMENT_ID ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'UpdateEMPLOYEES' (
+            'EMPLOYEE_ID' employee_id:'int' '=' 
+            'FIRST_NAME' first_name:'text' '=' 
+            'LAST_NAME' last_name:'text' '=' 
+            'EMAIL' email:'text' '=' 
+            'PHONE_NUMBER' phone_number:'text' '=' 
+            'HIRE_DATE' hire_date:'timestamp' '=' 
+            'JOB_ID' job_id:'text' '=' 
+            'SALARY' salary:'decimal' '=' 
+            'COMMISSION_PCT' commission_pct:'decimal' '=' 
+            'MANAGER_ID' manager_id:'int' '=' 
+            'DEPARTMENT_ID' department_id:'int' '=' 
+            SET 'newEMPLOYEE_ID' employee_id:'int' '=' OBL 
+            SET 'newFIRST_NAME' first_name:'text' '=' 
+            SET 'newLAST_NAME' last_name:'text' '=' OBL 
+            SET 'newEMAIL' email:'text' '=' OBL 
+            SET 'newPHONE_NUMBER' phone_number:'text' '=' 
+            SET 'newHIRE_DATE' hire_date:'timestamp' '=' OBL 
+            SET 'newJOB_ID' job_id:'text' '=' OBL 
+            SET 'newSALARY' salary:'decimal' '=' 
+            SET 'newCOMMISSION_PCT' commission_pct:'decimal' '=' 
+            SET 'newMANAGER_ID' manager_id:'int' '=' 
+            SET 'newDEPARTMENT_ID' department_id:'int' '=' 
+        )
+        OUTPUT 'long'
+    )
+    FOLDER = '/base_view';
+

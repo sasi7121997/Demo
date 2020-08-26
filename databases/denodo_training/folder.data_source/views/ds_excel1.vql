@@ -1,0 +1,42 @@
+﻿CREATE OR REPLACE TABLE ds_excel1 I18N au_cst (
+        column_0:text (sourcetypeid = '12'), 
+        column_1:text (sourcetypeid = '12'), 
+        column_2:text (sourcetypeid = '12'), 
+        column_3:text (sourcetypeid = '12'), 
+        column_4:text (sourcetypeid = '12'), 
+        column_5:text (sourcetypeid = '12'), 
+        column_6:text (sourcetypeid = '12'), 
+        column_7:text (sourcetypeid = '12'), 
+        column_8:text (sourcetypeid = '12'), 
+        column_9:text (sourcetypeid = '12'), 
+        column_10:text (sourcetypeid = '12'), 
+        column_11:text (sourcetypeid = '12'), 
+        column_12:text (sourcetypeid = '12'), 
+        column_13:text (sourcetypeid = '12')
+    )
+    FOLDER = '/data_source'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD ds_excel1(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD column_0 (any) OPT ANY
+             ADD column_1 (any) OPT ANY
+             ADD column_2 (any) OPT ANY
+             ADD column_3 (any) OPT ANY
+             ADD column_4 (any) OPT ANY
+             ADD column_5 (any) OPT ANY
+             ADD column_6 (any) OPT ANY
+             ADD column_7 (any) OPT ANY
+             ADD column_8 (any) OPT ANY
+             ADD column_9 (any) OPT ANY
+             ADD column_10 (any) OPT ANY
+             ADD column_11 (any) OPT ANY
+             ADD column_12 (any) OPT ANY
+             ADD column_13 (any) OPT ANY
+        )
+        OUTPUTLIST (column_0, column_1, column_10, column_11, column_12, column_13, column_2, column_3, column_4, column_5, column_6, column_7, column_8, column_9
+        )
+        WRAPPER (custom ds_excel1)
+    );
+

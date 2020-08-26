@@ -1,0 +1,6 @@
+﻿CREATE OR REPLACE ASSOCIATION jobs_employees REFERENTIAL CONSTRAINT 
+FOLDER = '/data_source'
+    ENDPOINT employees jobs PRINCIPAL (0,1)
+    ENDPOINT jobs employees (0,*)
+    ADD MAPPING job_id=job_id;
+

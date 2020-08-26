@@ -1,0 +1,4 @@
+﻿/databases/denodo_training/folder.base_view/base_view.vql
+/databases/denodo_training/folder.base_view/datasources/jdbc/ds_web_orders.vql
+/databases/denodo_training/folder.base_view/views/stock.vql
+/databases/denodo_training/views/bv_wo_dis_from_storage.vql

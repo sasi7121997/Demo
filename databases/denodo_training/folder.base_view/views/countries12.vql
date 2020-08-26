@@ -6,7 +6,7 @@ CREATE OR REPLACE WRAPPER JDBC countries
     RELATIONNAME='COUNTRIES' 
     OUTPUTSCHEMA (
         country_id = 'COUNTRY_ID' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='2', sourcetypeid='1', sourcetypename='CHAR')  NOT NULL SORTABLE,
-        country_name = 'COUNTRY_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='40', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE,
+        country_name = 'COUNTRY_NAME' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='40', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL SORTABLE,
         region_id = 'REGION_ID' :'java.math.BigDecimal' (OPT) (sourcetyperadix='10', sourcetypeid='3', sourcetypename='NUMBER')  SORTABLE
     )
     SOURCECONFIGURATION (
@@ -37,7 +37,7 @@ CREATE OR REPLACE TABLE countries12 I18N au_cst (
         region_id:decimal (sourcetypeid = '3', sourcetyperadix = '10')
     )
     FOLDER = '/base_view'
-    CONSTRAINT 'COUNTRY_C_ID_PK' PRIMARY KEY ( 'country_id' )
+    PRIMARY KEY ( 'country_name' )
     CACHE OFF
     BATCHSIZEINCACHE DEFAULT
     TIMETOLIVEINCACHE DEFAULT

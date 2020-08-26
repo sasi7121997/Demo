@@ -1,0 +1,54 @@
+﻿CREATE OR REPLACE WRAPPER WS getcountriesbycountry_idandcountry_nameandregion_id
+    FOLDER = '/data_source'
+    DATASOURCENAME=ds_pro1
+    SERVICENAME='countriesService'
+    PORTNAME='countries'
+    OPERATIONNAME='getCOUNTRIESByCOUNTRY_IDAndCOUNTRY_NAMEAndREGION_ID'
+    INPUTMESSAGE='getCOUNTRIESByCOUNTRY_IDAndCOUNTRY_NAMEAndREGION_IDRequest'
+    OUTPUTMESSAGE='getCOUNTRIESByCOUNTRY_IDAndCOUNTRY_NAMEAndREGION_IDResponse'
+    OUTPUTSCHEMA (
+    getcountriesbycountry_idandcountry_nameandregion_id = '$$0': REGISTER OF (
+        country_id='COUNTRY_ID' (OBL),
+        country_name='COUNTRY_NAME' (OBL),
+        region_id='REGION_ID' (OBL)
+    ),
+    return = '$$$$': ARRAY OF (
+        countriesreturnrow = 'COUNTRIESReturnRow': REGISTER OF (
+            country_id='COUNTRY_ID',
+            country_name='COUNTRY_NAME',
+            region_id='REGION_ID'
+        )
+    )
+    );
+
+CREATE OR REPLACE TYPE getcountriesbycountry_idandcountry_nameandregion_id_getcountriesbycountry_idandcountry_nameandregi_0 AS REGISTER OF (country_id:text, country_name:text, region_id:decimal);
+
+CREATE OR REPLACE TYPE getcountriesbycountry_idandcountry_nameandregion_id_return_countriesreturnrow AS REGISTER OF (country_id:text, country_name:text, region_id:decimal);
+
+CREATE OR REPLACE TYPE getcountriesbycountry_idandcountry_nameandregion_id_return AS ARRAY OF getcountriesbycountry_idandcountry_nameandregion_id_return_countriesreturnrow;
+
+CREATE OR REPLACE TABLE getcountriesbycountry_idandcountry_nameandregion_id I18N au_cst (
+        getcountriesbycountry_idandcountry_nameandregion_id:getcountriesbycountry_idandcountry_nameandregion_id_getcountriesbycountry_idandcountry_nameandregi_0, 
+        return:getcountriesbycountry_idandcountry_nameandregion_id_return
+    )
+    FOLDER = '/data_source'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD getcountriesbycountry_idandcountry_nameandregion_id(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD getcountriesbycountry_idandcountry_nameandregion_id (=,is null) OPT ONE
+             ADD getcountriesbycountry_idandcountry_nameandregion_id.country_id (=) OBL ONE
+             ADD getcountriesbycountry_idandcountry_nameandregion_id.country_name (=) OBL ONE
+             ADD getcountriesbycountry_idandcountry_nameandregion_id.region_id (=) OBL ONE
+             ADD return NOS ZERO ()
+             ADD return NOS ZERO ()
+             ADD return.country_id NOS ZERO ()
+             ADD return.country_name NOS ZERO ()
+             ADD return.region_id NOS ZERO ()
+        )
+        OUTPUTLIST (getcountriesbycountry_idandcountry_nameandregion_id, return
+        )
+        WRAPPER (ws getcountriesbycountry_idandcountry_nameandregion_id)
+    );
+

@@ -1,0 +1,9 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE WS webbbbb
+    FOLDER = '/base_view'
+    WSDLURI = '${databases.denodo_training.folder.base_view.datasources.ws.webbbbb.WSDLURI}'
+    MAXCONNECTIONS 50
+    CONNECTIONPOOLTIMEOUT 0
+    AUTHENTICATION OFF
+    PROXY OFF;
+

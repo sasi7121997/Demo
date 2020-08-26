@@ -1,0 +1,6 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE XML ds_todyxml
+    ROUTE HTTP 'http.CommonsHttpClientConnection,120000' GET '${databases.denodo_training.datasources.xml.ds_todyxml.ROUTE.HTTP.URL}'
+    AUTHENTICATION OFF
+    PROXY OFF;
+

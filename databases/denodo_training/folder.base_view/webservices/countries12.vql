@@ -1,0 +1,70 @@
+﻿CREATE OR REPLACE SOAP WEBSERVICE countries12
+    CONNECTION (
+        CHUNKSIZE = 1000
+        CHUNKTIMEOUT = 90000
+        QUERYTIMEOUT = 900000
+        POOLENABLED = true
+        POOLINITSIZE = 0
+        POOLMAXACTIVE = 30
+    )
+    I18N  = au_cst
+    DATETYPEMAPPING DATE
+    NOWRAPARRAYS
+    RAISEFAULTONIDU
+    DONOTAPPLYOUTPUTXSLTTOERRORS
+    OUTPUT 
+        ( STYLE DOCUMENT )
+    OPERATION 'getCOUNTRIES12ByCOUNTRY_IDAndCOUNTRY_NAMEAndREGION_ID' (
+        TYPE SELECT
+        SCHEMA VIEW countries12
+        VQL = 'SELECT country_id, country_name, region_id FROM countries12 ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@VERBOSEERRORS,"")^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'GetCOUNTRIES12ByCOUNTRY_IDAndCOUNTRY_NAMEAndREGION_ID' (
+            'COUNTRY_ID' country_id:'text' '=' 
+            'COUNTRY_NAME' country_name:'text' '=' 
+            'REGION_ID' region_id:'decimal' '=' 
+        )
+        OUTPUT 
+            'COUNTRIES12Return': Array of ( 'COUNTRIES12ReturnRow': Register of (
+                country_id : 'text',
+                country_name : 'text',
+                region_id : 'decimal'
+            ) (
+                    '/country_id'='COUNTRY_ID',
+                    '/country_name'='COUNTRY_NAME',
+                    '/region_id'='REGION_ID'))
+    )    OPERATION 'insertCOUNTRIES12' (
+        TYPE INSERT
+        SCHEMA VIEW countries12
+        VQL = 'INSERT INTO countries12 (country_id, country_name, region_id) VALUES (@COUNTRY_ID, @COUNTRY_NAME, @REGION_ID) CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'InsertCOUNTRIES12' (
+            'COUNTRY_ID' country_id:'text' '=' OBL 
+            'COUNTRY_NAME' country_name:'text' '=' 
+            'REGION_ID' region_id:'decimal' '=' 
+        )
+        OUTPUT 'long'
+    )    OPERATION 'deleteCOUNTRIES12' (
+        TYPE DELETE
+        SCHEMA VIEW countries12
+        VQL = 'DELETE FROM countries12 ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'DeleteCOUNTRIES12' (
+            'COUNTRY_ID' country_id:'text' '=' 
+            'COUNTRY_NAME' country_name:'text' '=' 
+            'REGION_ID' region_id:'decimal' '=' 
+        )
+        OUTPUT 'long'
+    )    OPERATION 'updateCOUNTRIES12' (
+        TYPE UPDATE
+        SCHEMA VIEW countries12
+        VQL = 'UPDATE countries12 SET country_id=@newCOUNTRY_ID, country_name=@newCOUNTRY_NAME, region_id=@newREGION_ID ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'UpdateCOUNTRIES12' (
+            'COUNTRY_ID' country_id:'text' '=' 
+            'COUNTRY_NAME' country_name:'text' '=' 
+            'REGION_ID' region_id:'decimal' '=' 
+            SET 'newCOUNTRY_ID' country_id:'text' '=' OBL 
+            SET 'newCOUNTRY_NAME' country_name:'text' '=' 
+            SET 'newREGION_ID' region_id:'decimal' '=' 
+        )
+        OUTPUT 'long'
+    )
+    FOLDER = '/base_view';
+

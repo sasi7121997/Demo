@@ -1,0 +1,10 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE XML ds_xmllab
+    ROUTE HTTP 'http.CommonsHttpClientConnection,120000' GET '${databases.denodo_training.datasources.xml.ds_xmllab.ROUTE.HTTP.URL}'
+    HEADERS (
+        'Accept'='application/xml', 
+        'Content-Type'='application/xml'
+    )
+    AUTHENTICATION OFF
+    PROXY OFF;
+

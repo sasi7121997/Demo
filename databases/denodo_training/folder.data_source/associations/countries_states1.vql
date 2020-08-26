@@ -1,0 +1,6 @@
+﻿CREATE OR REPLACE ASSOCIATION countries_states1 REFERENTIAL CONSTRAINT 
+FOLDER = '/data_source'
+    ENDPOINT states1 countries PRINCIPAL (0,1)
+    ENDPOINT countries states1 (0,*)
+    ADD MAPPING countryid=countryid;
+

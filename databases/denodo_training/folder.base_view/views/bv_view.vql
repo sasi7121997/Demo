@@ -1,0 +1,52 @@
+﻿CREATE OR REPLACE WRAPPER JDBC bv_view
+    FOLDER = '/base_view'
+    DATASOURCENAME=ds_web_orders
+    SQLSENTENCE='select  *  from website_sys.customer'   
+    OUTPUTSCHEMA (
+        id = 'ID' :'java.math.BigDecimal' (sourcetypeid='2', sourcetypename='NUMBER')  NOT NULL SORTABLE NOT UPDATEABLE,
+        customer_code_internal = 'CUSTOMER_CODE_INTERNAL' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='20', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL SORTABLE NOT UPDATEABLE,
+        first_name = 'FIRST_NAME' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL SORTABLE NOT UPDATEABLE,
+        last_name = 'LAST_NAME' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='100', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE NOT UPDATEABLE,
+        email = 'EMAIL' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='50', sourcetypeid='12', sourcetypename='VARCHAR2')  NOT NULL SORTABLE NOT UPDATEABLE,
+        phone = 'PHONE' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='20', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE NOT UPDATEABLE,
+        main_address = 'MAIN_ADDRESS' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='200', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE NOT UPDATEABLE,
+        main_postcode = 'MAIN_POSTCODE' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='20', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE NOT UPDATEABLE,
+        main_country = 'MAIN_COUNTRY' :'java.lang.String' (sourcetypedecimals='0', sourcetypesize='100', sourcetypeid='12', sourcetypename='VARCHAR2')  SORTABLE NOT UPDATEABLE,
+        registered_date = 'REGISTERED_DATE' :'java.time.LocalDateTime' (sourcetypedecimals='6', sourcetypesize='0', sourcetypeid='93', sourcetypename='TIMESTAMP')  NOT NULL SORTABLE NOT UPDATEABLE
+    );
+
+CREATE OR REPLACE TABLE bv_view I18N au_cst (
+        id:decimal (sourcetypeid = '3'), 
+        customer_code_internal:text (sourcetypeid = '12', sourcetypedecimals = '0', sourcetypesize = '20'), 
+        first_name:text (sourcetypeid = '12', sourcetypedecimals = '0', sourcetypesize = '50'), 
+        last_name:text (sourcetypeid = '12', sourcetypedecimals = '0', sourcetypesize = '100'), 
+        email:text (sourcetypeid = '12', sourcetypedecimals = '0', sourcetypesize = '50'), 
+        phone:text (sourcetypeid = '12', sourcetypedecimals = '0', sourcetypesize = '20'), 
+        main_address:text (sourcetypeid = '12', sourcetypedecimals = '0', sourcetypesize = '200'), 
+        main_postcode:text (sourcetypeid = '12', sourcetypedecimals = '0', sourcetypesize = '20'), 
+        main_country:text (sourcetypeid = '12', sourcetypedecimals = '0', sourcetypesize = '100'), 
+        registered_date:timestamp (sourcetypeid = '93', sourcetypedecimals = '6', sourcetypesize = '0')
+    )
+    FOLDER = '/base_view'
+    PRIMARY KEY ( 'customer_code_internal' , 'first_name' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_view(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD id NOS ZERO ()
+             ADD customer_code_internal NOS ZERO ()
+             ADD first_name NOS ZERO ()
+             ADD last_name NOS ZERO ()
+             ADD email NOS ZERO ()
+             ADD phone NOS ZERO ()
+             ADD main_address NOS ZERO ()
+             ADD main_postcode NOS ZERO ()
+             ADD main_country NOS ZERO ()
+             ADD registered_date NOS ZERO ()
+        )
+        OUTPUTLIST (customer_code_internal, email, first_name, id, last_name, main_address, main_country, main_postcode, phone, registered_date
+        )
+        WRAPPER (jdbc bv_view)
+    );
+

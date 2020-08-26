@@ -1,0 +1,77 @@
+﻿CREATE OR REPLACE SOAP WEBSERVICE departments
+    CONNECTION (
+        CHUNKSIZE = 1000
+        CHUNKTIMEOUT = 90000
+        QUERYTIMEOUT = 900000
+        POOLENABLED = true
+        POOLINITSIZE = 0
+        POOLMAXACTIVE = 30
+    )
+    I18N  = au_cst
+    DATETYPEMAPPING DATE
+    NOWRAPARRAYS
+    RAISEFAULTONIDU
+    DONOTAPPLYOUTPUTXSLTTOERRORS
+    OUTPUT 
+        ( STYLE DOCUMENT )
+    OPERATION 'getDEPARTMENTSByDEPARTMENT_IDAndDEPARTMENT_NAMEAndMANAGER_IDAndLOCATION_ID' (
+        TYPE SELECT
+        SCHEMA VIEW departments
+        VQL = 'SELECT department_id, department_name, manager_id, location_id FROM departments ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@VERBOSEERRORS,"")^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'GetDEPARTMENTSByDEPARTMENT_IDAndDEPARTMENT_NAMEAndMANAGER_IDAndLOCATION_ID' (
+            'DEPARTMENT_ID' department_id:'int' '=' 
+            'DEPARTMENT_NAME' department_name:'text' '=' 
+            'MANAGER_ID' manager_id:'int' '=' 
+            'LOCATION_ID' location_id:'int' '=' 
+        )
+        OUTPUT 
+            'DEPARTMENTSReturn': Array of ( 'DEPARTMENTSReturnRow': Register of (
+                department_id : 'int',
+                department_name : 'text',
+                manager_id : 'int',
+                location_id : 'int'
+            ) (
+                    '/department_id'='DEPARTMENT_ID',
+                    '/department_name'='DEPARTMENT_NAME',
+                    '/location_id'='LOCATION_ID',
+                    '/manager_id'='MANAGER_ID'))
+    )    OPERATION 'insertDEPARTMENTS' (
+        TYPE INSERT
+        SCHEMA VIEW departments
+        VQL = 'INSERT INTO departments (department_id, department_name, manager_id, location_id) VALUES (@DEPARTMENT_ID, @DEPARTMENT_NAME, @MANAGER_ID, @LOCATION_ID) CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'InsertDEPARTMENTS' (
+            'DEPARTMENT_ID' department_id:'int' '=' OBL 
+            'DEPARTMENT_NAME' department_name:'text' '=' OBL 
+            'MANAGER_ID' manager_id:'int' '=' 
+            'LOCATION_ID' location_id:'int' '=' 
+        )
+        OUTPUT 'long'
+    )    OPERATION 'deleteDEPARTMENTS' (
+        TYPE DELETE
+        SCHEMA VIEW departments
+        VQL = 'DELETE FROM departments ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'DeleteDEPARTMENTS' (
+            'DEPARTMENT_ID' department_id:'int' '=' 
+            'DEPARTMENT_NAME' department_name:'text' '=' 
+            'MANAGER_ID' manager_id:'int' '=' 
+            'LOCATION_ID' location_id:'int' '=' 
+        )
+        OUTPUT 'long'
+    )    OPERATION 'updateDEPARTMENTS' (
+        TYPE UPDATE
+        SCHEMA VIEW departments
+        VQL = 'UPDATE departments SET department_id=@newDEPARTMENT_ID, department_name=@newDEPARTMENT_NAME, manager_id=@newMANAGER_ID, location_id=@newLOCATION_ID ^ExecuteIfIsNotNull("WHERE ",@WHEREEXPRESSION,"") CONTEXT (''i18n'' = ''au_cst''^ExecuteIfIsNotNull(", ",@CONTEXTEXPRESSION,""))'
+        INPUTS 'UpdateDEPARTMENTS' (
+            'DEPARTMENT_ID' department_id:'int' '=' 
+            'DEPARTMENT_NAME' department_name:'text' '=' 
+            'MANAGER_ID' manager_id:'int' '=' 
+            'LOCATION_ID' location_id:'int' '=' 
+            SET 'newDEPARTMENT_ID' department_id:'int' '=' OBL 
+            SET 'newDEPARTMENT_NAME' department_name:'text' '=' OBL 
+            SET 'newMANAGER_ID' manager_id:'int' '=' 
+            SET 'newLOCATION_ID' location_id:'int' '=' 
+        )
+        OUTPUT 'long'
+    )
+    FOLDER = '/base_view';
+

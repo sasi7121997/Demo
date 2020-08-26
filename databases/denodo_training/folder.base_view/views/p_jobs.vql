@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW p_jobs FOLDER = '/base_view' AS SELECT job_id AS job_id, nest(min_salary, max_salary) AS salary FROM jobs GROUP BY job_id;
+
+ALTER VIEW p_jobs
+ LAYOUT (jobs = [20, 20, 200, 106]);
+

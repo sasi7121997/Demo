@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW f_p_jobs FOLDER = '/base_view' AS SELECT job_id, min_salary, max_salary FROM FLATTEN p_jobs AS v ( v.salary);
+
+ALTER VIEW f_p_jobs
+ LAYOUT (p_jobs = [20, 20, 237, 106]);
+

@@ -1,0 +1,46 @@
+﻿CREATE OR REPLACE WRAPPER WS updatecountries
+    FOLDER = '/data_source'
+    DATASOURCENAME=ds_pro1
+    SERVICENAME='countriesService'
+    PORTNAME='countries'
+    OPERATIONNAME='updateCOUNTRIES'
+    INPUTMESSAGE='updateCOUNTRIESRequest'
+    OUTPUTMESSAGE='updateCOUNTRIESResponse'
+    OUTPUTSCHEMA (
+    updatecountries = '$$0': REGISTER OF (
+        country_id='COUNTRY_ID' (OBL),
+        country_name='COUNTRY_NAME' (OBL),
+        region_id='REGION_ID' (OBL),
+        newcountry_id='newCOUNTRY_ID' (OBL),
+        newcountry_name='newCOUNTRY_NAME' (OBL),
+        newregion_id='newREGION_ID' (OBL)
+    ),
+    return='$$$$'
+    );
+
+CREATE OR REPLACE TYPE updatecountries_updatecountries AS REGISTER OF (country_id:text, country_name:text, region_id:decimal, newcountry_id:text, newcountry_name:text, newregion_id:decimal);
+
+CREATE OR REPLACE TABLE updatecountries I18N au_cst (
+        updatecountries:updatecountries_updatecountries, 
+        return:long
+    )
+    FOLDER = '/data_source'
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD updatecountries(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD updatecountries (=,is null) OPT ONE
+             ADD updatecountries.country_id (=) OBL ONE
+             ADD updatecountries.country_name (=) OBL ONE
+             ADD updatecountries.region_id (=) OBL ONE
+             ADD updatecountries.newcountry_id (=) OBL ONE
+             ADD updatecountries.newcountry_name (=) OBL ONE
+             ADD updatecountries.newregion_id (=) OBL ONE
+             ADD return NOS ZERO ()
+        )
+        OUTPUTLIST (return, updatecountries
+        )
+        WRAPPER (ws updatecountries)
+    );
+

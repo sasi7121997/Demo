@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW p_countries12 FOLDER = '/base_view' AS SELECT country_id AS country_id, register(country_id, country_id) AS country FROM countries12 GROUP BY country_id;
+
+ALTER VIEW p_countries12
+ LAYOUT (countries12 = [20, 20, 214, 86]);
+

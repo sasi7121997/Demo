@@ -1,0 +1,5 @@
+﻿CREATE OR REPLACE VIEW p_customer FOLDER = '/data_source' AS SELECT count(*) AS sum FROM customer;
+
+ALTER VIEW p_customer
+ LAYOUT (customer = [20, 20, 285, 226]);
+

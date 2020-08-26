@@ -1,0 +1,28 @@
+﻿CREATE OR REPLACE WRAPPER JDBC bv_wo_dis_from_storage
+    DATASOURCENAME=ds_web_orders
+    SQLSENTENCE='SELECT LATITUDE AS lat_storage,LONGITUDE AS lon_storage,ID AS storage_id FROM website_sys.storages'   
+    OUTPUTSCHEMA (
+        lat_storage = 'LAT_STORAGE' :'java.math.BigDecimal' (sourcetypedecimals='10', sourcetypesize='20', sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE NOT UPDATEABLE,
+        lon_storage = 'LON_STORAGE' :'java.math.BigDecimal' (sourcetypedecimals='10', sourcetypesize='20', sourcetypeid='2', sourcetypename='NUMBER')  SORTABLE NOT UPDATEABLE,
+        storage_id = 'STORAGE_ID' :'java.math.BigDecimal' (sourcetypeid='2', sourcetypename='NUMBER')  NOT NULL SORTABLE NOT UPDATEABLE
+    );
+
+CREATE OR REPLACE TABLE bv_wo_dis_from_storage I18N au_cst (
+        lat_storage:decimal (sourcetypeid = '3', sourcetypedecimals = '10', sourcetypesize = '20'), 
+        lon_storage:decimal (sourcetypeid = '3', sourcetypedecimals = '10', sourcetypesize = '20'), 
+        storage_id:decimal (sourcetypeid = '3')
+    )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD bv_wo_dis_from_storage(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD lat_storage NOS ZERO ()
+             ADD lon_storage NOS ZERO ()
+             ADD storage_id NOS ZERO ()
+        )
+        OUTPUTLIST (lat_storage, lon_storage, storage_id
+        )
+        WRAPPER (jdbc bv_wo_dis_from_storage)
+    );
+

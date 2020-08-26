@@ -1,0 +1,8 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE DF ds_conn1
+    FOLDER = '/data_source'
+    ROUTE LOCAL 'LocalConnection' '${databases.denodo_training.folder.data_source.datasources.df.ds_conn1.ROUTE.LOCAL.PATH}' FILENAMEPATTERN = '^DateRange("yyyy/MM/dd","2014/01/01","2014/01/31","yyyy-MM-dd").log'
+    TUPLEPATTERN = '(\d{{2}}?/\d{{2}}?/\d{{4}}?)\s+?\d{{2}}:\d{{2}}.*?(\d[^ ]*)\s(.*)'
+    ENDOFLINEDELIMITER = '\n'
+    HEADER = FALSE;
+

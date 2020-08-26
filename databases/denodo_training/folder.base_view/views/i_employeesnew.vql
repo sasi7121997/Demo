@@ -1,0 +1,19 @@
+﻿CREATE OR REPLACE INTERFACE VIEW i_employeesnew (
+        employee_id:int (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '6', sourcetypeid = '4'),
+        first_name:text (sourcetyperadix = '10', sourcetypesize = '20', sourcetypeid = '12'),
+        last_name:text (sourcetyperadix = '10', sourcetypesize = '25', sourcetypeid = '12'),
+        email:text (sourcetyperadix = '10', sourcetypesize = '25', sourcetypeid = '12'),
+        phone_number:text (sourcetyperadix = '10', sourcetypesize = '20', sourcetypeid = '12'),
+        hire_date:timestamp (sourcetyperadix = '10', sourcetypesize = '7', sourcetypeid = '93'),
+        job_id:text (sourcetyperadix = '10', sourcetypesize = '10', sourcetypeid = '12'),
+        salary:decimal (sourcetypedecimals = '2', sourcetyperadix = '10', sourcetypesize = '8', sourcetypeid = '3'),
+        commission_pct:decimal (sourcetypedecimals = '2', sourcetyperadix = '10', sourcetypesize = '2', sourcetypeid = '3'),
+        manager_id:int (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '6', sourcetypeid = '4'),
+        department_id:int (sourcetypedecimals = '0', sourcetyperadix = '10', sourcetypesize = '4', sourcetypeid = '4')
+    )
+    SET IMPLEMENTATION employees
+    FOLDER = '/base_view';
+
+ALTER VIEW i_employeesnew
+ LAYOUT (employees = [452, 87, 243, 246]);
+

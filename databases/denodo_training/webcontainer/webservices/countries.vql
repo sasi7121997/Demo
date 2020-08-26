@@ -1,0 +1,5 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+UNDEPLOY IF EXISTS WEBSERVICE countries;
+
+DEPLOY WEBSERVICE countries LOGIN = '${databases.denodo_training.webcontainer.webservices.countries.LOGIN}' PASSWORD = '${databases.denodo_training.webcontainer.webservices.countries.PASSWORD}' ${databases.denodo_training.webcontainer.webservices.countries.PASSWORD.ENCRYPTED};
+
