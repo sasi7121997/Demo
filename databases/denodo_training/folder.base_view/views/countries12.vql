@@ -37,7 +37,7 @@ CREATE OR REPLACE TABLE countries12 I18N au_cst (
         region_id:decimal (sourcetypeid = '3', sourcetyperadix = '10')
     )
     FOLDER = '/base_view'
-    PRIMARY KEY ( 'country_name' )
+    PRIMARY KEY ( 'country_id' )
     CACHE OFF
     BATCHSIZEINCACHE DEFAULT
     TIMETOLIVEINCACHE DEFAULT
