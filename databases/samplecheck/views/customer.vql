@@ -30,7 +30,7 @@ CREATE OR REPLACE TABLE customer I18N au_cst (
         main_country:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '100'), 
         registered_date:timestamp (sourcetypeid = '93', sourcetyperadix = '10', sourcetypedecimals = '6', sourcetypesize = '11')
     )
-    PRIMARY KEY ( 'customer_code_internal' )
+    PRIMARY KEY ( 'id' )
     CACHE OFF
     TIMETOLIVEINCACHE DEFAULT
     ADD SEARCHMETHOD customer(
